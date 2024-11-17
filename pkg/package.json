@@ -1,0 +1,18 @@
+{
+  "name": "chi",
+  "type": "module",
+  "collaborators": [
+    "longfangsong <longfangsong@icloud.com>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "chi_bg.wasm",
+    "chi.js",
+    "chi.d.ts"
+  ],
+  "main": "chi.js",
+  "types": "chi.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
