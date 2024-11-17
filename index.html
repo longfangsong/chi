@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>χ</title>
+        <!-- <link rel="stylesheet" href="./style.css" /> -->
+        <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <main>
+            <h1>Welcome to My Website</h1>
+            <textarea id="input"></textarea>
+            <p id="abstract"></p>
+            <p id="output"></p>
+            <button id="eval">Eval</button>
+        </main>
+        <script type="module">
+            import init, {
+                parse,
+                eval_chi,
+                fmt,
+                fmt_abstract,
+            } from "./pkg/chi.js";
+
+            async function run() {
+                await init();
+                const evalButton = document.querySelector("#eval");
+                evalButton.addEventListener("click", () => {
+                    const input = document.querySelector("#input").value;
+                    const parsed = parse(input);
+                    const result = eval_chi(parsed);
+                    document.querySelector("#output").textContent = fmt(result);
+                    document.querySelector("#abstract").textContent =
+                        fmt_abstract(parsed);
+                });
+            }
+
+            run();
+        </script>
+    </body>
+</html>
