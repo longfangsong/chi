@@ -7,16 +7,23 @@
         <title>χ</title>
         <!-- <link rel="stylesheet" href="./style.css" /> -->
         <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+        />
     </head>
     <body>
         <main>
-            <h1>Welcome to My Website</h1>
+            <h1>χ interpreter</h1>
             <textarea id="input"></textarea>
-            <p id="abstract"></p>
-            <p id="output"></p>
+            <pre><code id="highlighted" class="language-chi"></code></pre>
+            <pre><code id="abstract" class="language-chi"></code></pre>
+            <pre><code id="output" class="language-chi"></code></pre>
             <button id="eval">Eval</button>
         </main>
         <script type="module">
+            import hljs from "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/highlight.min.js";
+            import chi from "./chi.js";
             import init, {
                 parse,
                 eval_chi,
@@ -26,14 +33,28 @@
 
             async function run() {
                 await init();
+
                 const evalButton = document.querySelector("#eval");
                 evalButton.addEventListener("click", () => {
                     const input = document.querySelector("#input").value;
                     const parsed = parse(input);
                     const result = eval_chi(parsed);
+                    document
+                        .querySelector("#highlighted")
+                        .removeAttribute("data-highlighted");
+                    document
+                        .querySelector("#output")
+                        .removeAttribute("data-highlighted");
+                    document
+                        .querySelector("#abstract")
+                        .removeAttribute("data-highlighted");
+                    document.querySelector("#highlighted").textContent =
+                        fmt(parsed);
                     document.querySelector("#output").textContent = fmt(result);
                     document.querySelector("#abstract").textContent =
                         fmt_abstract(parsed);
+                    hljs.registerLanguage("chi", chi);
+                    hljs.highlightAll();
                 });
             }
 

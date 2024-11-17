@@ -73,7 +73,7 @@ impl fmt::Debug for Exp {
 impl fmt::Display for Exp {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Exp::Apply(exp, exp1) => write!(f, "[{} {}]", exp, exp1),
+            Exp::Apply(exp, exp1) => write!(f, "{} {}", exp, exp1),
             Exp::Lambda(x, exp) => write!(f, "λ{}.({})", x, exp),
             Exp::Var(x) => write!(f, "{}", x),
             Exp::Case(exp, vec) => write!(

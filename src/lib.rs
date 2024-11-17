@@ -170,6 +170,6 @@ mod tests {
                 }
             ) Suc(Suc(Zero())) Suc(Zero())"#;
         let term = parse_exp(code).unwrap().1;
-        assert_eq!(format!("{}", t), "Suc(Suc(Suc(Zero())))");
+        assert_eq!(format!("{}", term), "Suc(Suc(Suc(Zero())))");
     }
 }
