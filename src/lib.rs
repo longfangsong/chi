@@ -90,13 +90,68 @@ pub fn eval_branch(exp: &Exp, branch: &Branch) -> Exp {
         if constructor == &branch.constructor && branch.variables.len() == exps.len() {
             let bindings = Iterator::zip(branch.variables.iter(), exps.iter());
             let mut result = *(branch.expression.clone());
-            for (var, exp) in bindings {
+            for (var, exp) in bindings.rev() {
                 result = substitute(&result, var, exp);
             }
             return eval(&result);
         }
     }
     unreachable!()
+}
+
+pub fn safe_eval_branch(exp: &Exp, branch: &Branch, seen: &mut HashSet<Exp>) -> Exp {
+    if let Exp::Const(constructor, exps) = exp {
+        if constructor == &branch.constructor && branch.variables.len() == exps.len() {
+            let bindings = Iterator::zip(branch.variables.iter(), exps.iter());
+            let mut result = *(branch.expression.clone());
+            for (var, exp) in bindings.rev() {
+                result = substitute(&result, var, exp);
+            }
+            return safe_eval(&result, seen);
+        }
+    }
+    unreachable!()
+}
+
+pub fn safe_eval(exp: &Exp, seen: &mut HashSet<Exp>) -> Exp {
+    match exp {
+        Exp::Var(x) => Exp::Var(x.clone()),
+        Exp::Apply(f, param) => {
+            if let Exp::Lambda(x, exp) = safe_eval(f, seen) {
+                let param = safe_eval(param, seen);
+                safe_eval(&substitute(&exp, &x, &param), seen)
+            } else {
+                Exp::Apply(f.clone(), param.clone())
+            }
+        }
+        Exp::Case(e, branches) => {
+            let exp = eval(e);
+            if let Exp::Const(constructor, exps) = exp {
+                if let Some(branch) = branches.iter().find(|branch| {
+                    branch.constructor == constructor && branch.variables.len() == exps.len()
+                }) {
+                    return safe_eval_branch(&Exp::Const(constructor, exps), branch, seen);
+                }
+            }
+            return Exp::Case(e.clone(), branches.clone());
+        }
+        Exp::Lambda(x, exp) => Exp::Lambda(x.clone(), exp.clone()),
+        Exp::Const(constructor, exps) => Exp::Const(
+            constructor.clone(),
+            exps.iter().map(|it| safe_eval(it, seen)).collect(),
+        ),
+        t @ Exp::Rec(x, exp) => {
+            if seen.contains(t) {
+                t.clone()
+            } else {
+                seen.insert(t.clone());
+                safe_eval(
+                    &substitute(&exp, &x, &Exp::Rec(x.clone(), exp.clone())),
+                    seen,
+                )
+            }
+        }
+    }
 }
 
 pub fn eval(exp: &Exp) -> Exp {
@@ -179,5 +234,29 @@ mod tests {
             ) Suc(Suc(Zero())) Suc(Zero())"#;
         let term = parse_exp(code).unwrap().1;
         assert_eq!(format!("{}", term), "Suc(Suc(Suc(Zero())))");
+    }
+
+    #[test]
+    fn test_eval2() {
+        let code = r#"rec x = x"#;
+        let term = parse_exp(code).unwrap().1;
+        let mut visited = HashSet::new();
+        assert_eq!(format!("{}", safe_eval(&term, &mut visited)), "x");
+    }
+
+    #[test]
+    fn test_free_vars() {
+        let codes = [
+            "y",
+            "𝜆 x. 𝜆 y. x",
+            "case x of {Cons(x, xs) → x}",
+            "case Suc(Zero()) of {Suc(x) → x}",
+            "rec f = 𝜆 x. f",
+        ];
+        for code in codes {
+            let term = parse_exp(code).unwrap().1;
+            let fv = free_variables(&term);
+            println!("{:?}", fv);
+        }
     }
 }

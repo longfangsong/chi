@@ -39,7 +39,7 @@ fn fmt_list<T: fmt::Display>(list: &[T], f: &mut fmt::Formatter<'_>) -> std::fmt
     Ok(())
 }
 
-#[derive(Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum Exp {
     Apply(Box<Exp>, Box<Exp>),
     Lambda(String, Box<Exp>),
@@ -104,7 +104,7 @@ impl fmt::Display for Exp {
     }
 }
 
-#[derive(Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Serialize, Deserialize, Hash)]
 pub struct Branch {
     pub constructor: String,
     pub variables: Vec<String>,
@@ -409,6 +409,15 @@ mod tests {
                         Box::new(Exp::Var("y".to_string()))
                     ))
                 )
+            ))
+        );
+
+        let code = r#"rec x = x"#;
+        assert_eq!(
+            rec(code),
+            Ok((
+                "",
+                Exp::Rec("x".to_string(), Box::new(Exp::Var("x".to_string(),)))
             ))
         );
     }
