@@ -190,6 +190,19 @@ export function fmt(exp) {
 
 /**
  * @param {any} exp
+ * @param {string} from_variable
+ * @param {any} to_exp
+ * @returns {any}
+ */
+export function substitute_chi(exp, from_variable, to_exp) {
+    const ptr0 = passStringToWasm0(from_variable, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.substitute_chi(exp, ptr0, len0, to_exp);
+    return ret;
+}
+
+/**
+ * @param {any} exp
  * @returns {string}
  */
 export function fmt_abstract(exp) {

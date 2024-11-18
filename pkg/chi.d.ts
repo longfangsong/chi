@@ -17,6 +17,13 @@ export function eval_chi(exp: any): any;
 export function fmt(exp: any): string;
 /**
  * @param {any} exp
+ * @param {string} from_variable
+ * @param {any} to_exp
+ * @returns {any}
+ */
+export function substitute_chi(exp: any, from_variable: string, to_exp: any): any;
+/**
+ * @param {any} exp
  * @returns {string}
  */
 export function fmt_abstract(exp: any): string;
@@ -28,6 +35,7 @@ export interface InitOutput {
   readonly parse: (a: number, b: number) => number;
   readonly eval_chi: (a: number) => number;
   readonly fmt: (a: number) => Array;
+  readonly substitute_chi: (a: number, b: number, c: number, d: number) => number;
   readonly fmt_abstract: (a: number) => Array;
   readonly __wbindgen_malloc: (a: number, b: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;

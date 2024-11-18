@@ -4,6 +4,7 @@ export const memory: WebAssembly.Memory;
 export function parse(a: number, b: number): number;
 export function eval_chi(a: number): number;
 export function fmt(a: number): Array;
+export function substitute_chi(a: number, b: number, c: number, d: number): number;
 export function fmt_abstract(a: number): Array;
 export function __wbindgen_malloc(a: number, b: number): number;
 export function __wbindgen_realloc(a: number, b: number, c: number, d: number): number;

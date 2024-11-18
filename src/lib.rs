@@ -143,6 +143,14 @@ pub fn fmt(exp: JsValue) -> String {
 }
 
 #[wasm_bindgen]
+pub fn substitute_chi(exp: JsValue, from_variable: &str, to_exp: JsValue) -> JsValue {
+    let exp: Exp = serde_wasm_bindgen::from_value(exp).unwrap();
+    let to_exp: Exp = serde_wasm_bindgen::from_value(to_exp).unwrap();
+    let result = substitute(&exp, from_variable, &to_exp);
+    serde_wasm_bindgen::to_value(&result).unwrap()
+}
+
+#[wasm_bindgen]
 pub fn fmt_abstract(exp: JsValue) -> String {
     let exp: Exp = serde_wasm_bindgen::from_value(exp).unwrap();
     format!("{:?}", exp)
