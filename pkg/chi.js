@@ -152,11 +152,11 @@ function debugString(val) {
     return className;
 }
 /**
- * @param {string} input
+ * @param {string} code
  * @returns {any}
  */
-export function parse(input) {
-    const ptr0 = passStringToWasm0(input, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+export function parse(code) {
+    const ptr0 = passStringToWasm0(code, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
     const ret = wasm.parse(ptr0, len0);
     return ret;
@@ -164,22 +164,30 @@ export function parse(input) {
 
 /**
  * @param {any} exp
- * @returns {any}
+ * @returns {string}
  */
-export function eval_chi(exp) {
-    const ret = wasm.eval_chi(exp);
-    return ret;
+export function format_abstract(exp) {
+    let deferred1_0;
+    let deferred1_1;
+    try {
+        const ret = wasm.format_abstract(exp);
+        deferred1_0 = ret[0];
+        deferred1_1 = ret[1];
+        return getStringFromWasm0(ret[0], ret[1]);
+    } finally {
+        wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+    }
 }
 
 /**
  * @param {any} exp
  * @returns {string}
  */
-export function fmt(exp) {
+export function format_concrete(exp) {
     let deferred1_0;
     let deferred1_1;
     try {
-        const ret = wasm.fmt(exp);
+        const ret = wasm.format_concrete(exp);
         deferred1_0 = ret[0];
         deferred1_1 = ret[1];
         return getStringFromWasm0(ret[0], ret[1]);
@@ -194,28 +202,29 @@ export function fmt(exp) {
  * @param {any} to_exp
  * @returns {any}
  */
-export function substitute_chi(exp, from_variable, to_exp) {
+export function substitute(exp, from_variable, to_exp) {
     const ptr0 = passStringToWasm0(from_variable, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
     const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.substitute_chi(exp, ptr0, len0, to_exp);
+    const ret = wasm.substitute(exp, ptr0, len0, to_exp);
     return ret;
 }
 
 /**
  * @param {any} exp
- * @returns {string}
+ * @returns {any}
  */
-export function fmt_abstract(exp) {
-    let deferred1_0;
-    let deferred1_1;
-    try {
-        const ret = wasm.fmt_abstract(exp);
-        deferred1_0 = ret[0];
-        deferred1_1 = ret[1];
-        return getStringFromWasm0(ret[0], ret[1]);
-    } finally {
-        wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
-    }
+export function eval(exp) {
+    const ret = wasm.eval(exp);
+    return ret;
+}
+
+/**
+ * @param {any} exp
+ * @returns {any}
+ */
+export function standard_form(exp) {
+    const ret = wasm.standard_form(exp);
+    return ret;
 }
 
 function addToExternrefTable0(obj) {
@@ -230,6 +239,48 @@ function handleError(f, args) {
     } catch (e) {
         const idx = addToExternrefTable0(e);
         wasm.__wbindgen_exn_store(idx);
+    }
+}
+
+const ContextFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_context_free(ptr >>> 0, 1));
+
+export class Context {
+
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        ContextFinalization.unregister(this);
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_context_free(ptr, 0);
+    }
+    /**
+     * @param {string} variable
+     * @param {number} id
+     */
+    set_variable(variable, id) {
+        const ptr0 = passStringToWasm0(variable, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        wasm.context_set_variable(this.__wbg_ptr, ptr0, len0, id);
+    }
+    /**
+     * @returns {any}
+     */
+    variable_assignments() {
+        const ret = wasm.context_variable_assignments(this.__wbg_ptr);
+        return ret;
+    }
+    /**
+     * @returns {any}
+     */
+    constructor_assignments() {
+        const ret = wasm.context_constructor_assignments(this.__wbg_ptr);
+        return ret;
     }
 }
 
@@ -267,10 +318,6 @@ async function __wbg_load(module, imports) {
 function __wbg_get_imports() {
     const imports = {};
     imports.wbg = {};
-    imports.wbg.__wbindgen_as_number = function(arg0) {
-        const ret = +arg0;
-        return ret;
-    };
     imports.wbg.__wbindgen_is_undefined = function(arg0) {
         const ret = arg0 === undefined;
         return ret;
@@ -296,6 +343,10 @@ function __wbg_get_imports() {
         const ret = typeof(val) === 'object' && val !== null;
         return ret;
     };
+    imports.wbg.__wbindgen_as_number = function(arg0) {
+        const ret = +arg0;
+        return ret;
+    };
     imports.wbg.__wbindgen_jsval_loose_eq = function(arg0, arg1) {
         const ret = arg0 == arg1;
         return ret;
@@ -313,6 +364,14 @@ function __wbg_get_imports() {
     };
     imports.wbg.__wbindgen_error_new = function(arg0, arg1) {
         const ret = new Error(getStringFromWasm0(arg0, arg1));
+        return ret;
+    };
+    imports.wbg.__wbindgen_number_new = function(arg0) {
+        const ret = arg0;
+        return ret;
+    };
+    imports.wbg.__wbindgen_bigint_from_u64 = function(arg0) {
+        const ret = BigInt.asUintN(64, arg0);
         return ret;
     };
     imports.wbg.__wbindgen_string_new = function(arg0, arg1) {

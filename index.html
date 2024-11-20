@@ -11,11 +11,19 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
         />
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
         <main>
-            <h1>χ interpreter</h1>
-            <textarea id="input"></textarea>
+            <h1>χ</h1>
+            <textarea id="input"
+                placeholder="Your χ program here, in concrete or abstract syntax"
+                class="font-mono flex min-h-[80px] w-full rounded-md border border-input bg-background
+                    px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+                    focus-visible:ring-offset-2 disabled:cursor-not-allowed
+                    disabled:opacity-50 md:text-sm
+                    "></textarea>
             <pre><code id="highlighted" class="language-chi"></code></pre>
             <pre><code id="abstract" class="language-chi"></code></pre>
             <pre><code id="output" class="language-chi"></code></pre>
@@ -45,7 +53,6 @@
                 evalButton.addEventListener("click", () => {
                     const input = document.querySelector("#input").value;
                     const parsed = parse(input);
-                    const result = eval_chi(parsed);
                     document
                         .querySelector("#highlighted")
                         .removeAttribute("data-highlighted");
@@ -57,9 +64,14 @@
                         .removeAttribute("data-highlighted");
                     document.querySelector("#highlighted").textContent =
                         fmt(parsed);
-                    document.querySelector("#output").textContent = fmt(result);
                     document.querySelector("#abstract").textContent =
                         fmt_abstract(parsed);
+                    try {
+                      const result = eval_chi(parsed);
+                      document.querySelector("#output").textContent = fmt(result);
+                    } catch (e) {
+                      document.querySelector("#output").textContent = "May not terminate!";
+                    }
                     hljs.registerLanguage("chi", chi);
                     hljs.highlightAll();
                 });
