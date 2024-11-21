@@ -1,4 +1,4 @@
-use crate::syntax::{concrete, Branch, Exp};
+use crate::syntax::{Branch, Exp};
 
 mod substitute;
 pub use substitute::substitute;
@@ -16,7 +16,6 @@ pub fn eval(exp: &Exp) -> Exp {
     match exp {
         Exp::Var(x) => Exp::Var(x.clone()),
         Exp::Apply(f, param) => {
-            println!("{{apply: {}\nand\n{}\n}}", concrete::format(f), concrete::format(param));
             if let Exp::Lambda(x, exp) = eval(f) {
                 let param = eval(param);
                 eval(&substitute(&exp, &x, &param))
@@ -45,18 +44,38 @@ pub fn eval(exp: &Exp) -> Exp {
 
 #[cfg(test)]
 mod tests {
-    use crate::{semantic::eval, syntax::{abst, concrete}};
+    use crate::{semantic::eval, syntax::concrete};
 
     #[test]
     fn test_eval() {
-        let code_add = r#"(rec foo = 𝜆 m. 𝜆 n. case n of {
+        let code_sub = r#"(rec foo = 𝜆 m. 𝜆 n. case n of {
         Zero() → m;
         Suc(n) → case m of {
         Zero() → Zero();
         Suc(m) → foo m n}})
         Suc(Suc(Zero())) Suc(Zero())"#;
-        let term_add = concrete::parse(code_add).unwrap();
-        let result = eval(&term_add);
+        let term_sub = concrete::parse(code_sub).unwrap();
+        let result = eval(&term_sub);
         assert_eq!(concrete::format(&result), "Suc(Zero())");
+
+        let code = r#"case C(D(),E()) of { C(x, x) → x }"#;
+        let term = concrete::parse(code).unwrap();
+        let result = eval(&term);
+        assert_eq!(concrete::format(&result), "E()");
+
+        let code = r#"case C(λx.x, Zero()) of { C(f, x) → f x }"#;
+        let term = concrete::parse(code).unwrap();
+        let result = eval(&term);
+        assert_eq!(concrete::format(&result), "Zero()");
+
+        let code = r#"case (λx.x) C() of { C() → C() }"#;
+        let term = concrete::parse(code).unwrap();
+        let result = eval(&term);
+        assert_eq!(concrete::format(&result), "C()");
+
+        let code = r#"((λx.x)(λx.x))(λx.x)"#;
+        let term = concrete::parse(code).unwrap();
+        let result = eval(&term);
+        assert_eq!(concrete::format(&result), "λx.x");
     }
 }

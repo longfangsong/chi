@@ -1,4 +1,4 @@
-use crate::syntax::{concrete, Branch, Exp};
+use crate::syntax::{Branch, Exp};
 
 fn substitute_branch(branch: &Branch, from_variable: &str, to_exp: &Exp) -> Branch {
     if branch.parameters.contains(&from_variable.to_string()) {
@@ -17,7 +17,7 @@ fn substitute_branch(branch: &Branch, from_variable: &str, to_exp: &Exp) -> Bran
 }
 
 pub fn substitute(exp: &Exp, from_variable: &str, to_exp: &Exp) -> Exp {
-    let result = match exp {
+    match exp {
         Exp::Apply(f, x) => Exp::Apply(
             Box::new(substitute(f, from_variable, to_exp)),
             Box::new(substitute(x, from_variable, to_exp)),
@@ -44,10 +44,7 @@ pub fn substitute(exp: &Exp, from_variable: &str, to_exp: &Exp) -> Exp {
                 .map(|e| substitute(e, from_variable, to_exp))
                 .collect(),
         ),
-    };
-    print!("{}[{}<-{}]\nresults to:\n", concrete::format(exp), from_variable, concrete::format(to_exp));
-    println!("{}\n==========\n", concrete::format(&result));
-    result
+    }
 }
 
 #[cfg(test)]
@@ -57,6 +54,12 @@ mod tests {
 
     #[test]
     fn test_substitute() {
+        let code = r#"rec x = x"#;
+        let term = concrete::parse(code).unwrap();
+        let sub_term = concrete::parse("Z()").unwrap();
+        let substitued = substitute(&term, "x", &sub_term);
+        assert_eq!(concrete::format(&substitued), "rec x = x");
+
         let code = r#"rec y = case x of {C() → x; D(x) → x}"#;
         let term = concrete::parse(code).unwrap();
         let substitued = substitute(
@@ -68,5 +71,11 @@ mod tests {
             concrete::format(&substitued),
             "rec y = case λz.z of {\n  C() -> λz.z;\n  D(x) -> x\n}"
         );
+
+        let code = r#"case z of { C(z) → z }"#;
+        let term = concrete::parse(code).unwrap();
+        let sub_term = concrete::parse("C(λz.z)").unwrap();
+        let substitued = substitute(&term, "z", &sub_term);
+        assert_eq!(concrete::format(&substitued), "case C(λz.z) of {\n  C(z) -> z\n}");
     }
 }
