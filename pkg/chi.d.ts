@@ -26,19 +26,31 @@ export function substitute(exp: any, from_variable: string, to_exp: any): any;
  * @param {any} exp
  * @returns {any}
  */
-export function eval(exp: any): any;
+export function eval_chi(exp: any): any;
 /**
  * @param {any} exp
+ * @param {Context | undefined} [context]
  * @returns {any}
  */
-export function standard_form(exp: any): any;
+export function standard_form(exp: any, context?: Context): any;
+/**
+ * @param {any} v
+ * @returns {Context}
+ */
+export function get_context_object(v: any): Context;
 export class Context {
   free(): void;
+  constructor();
   /**
    * @param {string} variable
    * @param {number} id
    */
   set_variable(variable: string, id: number): void;
+  /**
+   * @param {string} constructor
+   * @param {number} id
+   */
+  set_constructor(constructor: string, id: number): void;
   /**
    * @returns {any}
    */
@@ -57,10 +69,13 @@ export interface InitOutput {
   readonly format_abstract: (a: number) => Array;
   readonly format_concrete: (a: number) => Array;
   readonly substitute: (a: number, b: number, c: number, d: number) => number;
-  readonly eval: (a: number) => number;
-  readonly standard_form: (a: number) => number;
+  readonly eval_chi: (a: number) => number;
+  readonly standard_form: (a: number, b: number) => number;
+  readonly get_context_object: (a: number) => number;
   readonly __wbg_context_free: (a: number, b: number) => void;
+  readonly context_new: () => number;
   readonly context_set_variable: (a: number, b: number, c: number, d: number) => void;
+  readonly context_set_constructor: (a: number, b: number, c: number, d: number) => void;
   readonly context_variable_assignments: (a: number) => number;
   readonly context_constructor_assignments: (a: number) => number;
   readonly __wbindgen_malloc: (a: number, b: number) => number;

@@ -213,18 +213,39 @@ export function substitute(exp, from_variable, to_exp) {
  * @param {any} exp
  * @returns {any}
  */
-export function eval(exp) {
-    const ret = wasm.eval(exp);
+export function eval_chi(exp) {
+    const ret = wasm.eval_chi(exp);
+    return ret;
+}
+
+function _assertClass(instance, klass) {
+    if (!(instance instanceof klass)) {
+        throw new Error(`expected instance of ${klass.name}`);
+    }
+    return instance.ptr;
+}
+/**
+ * @param {any} exp
+ * @param {Context | undefined} [context]
+ * @returns {any}
+ */
+export function standard_form(exp, context) {
+    let ptr0 = 0;
+    if (!isLikeNone(context)) {
+        _assertClass(context, Context);
+        ptr0 = context.__destroy_into_raw();
+    }
+    const ret = wasm.standard_form(exp, ptr0);
     return ret;
 }
 
 /**
- * @param {any} exp
- * @returns {any}
+ * @param {any} v
+ * @returns {Context}
  */
-export function standard_form(exp) {
-    const ret = wasm.standard_form(exp);
-    return ret;
+export function get_context_object(v) {
+    const ret = wasm.get_context_object(v);
+    return Context.__wrap(ret);
 }
 
 function addToExternrefTable0(obj) {
@@ -248,6 +269,14 @@ const ContextFinalization = (typeof FinalizationRegistry === 'undefined')
 
 export class Context {
 
+    static __wrap(ptr) {
+        ptr = ptr >>> 0;
+        const obj = Object.create(Context.prototype);
+        obj.__wbg_ptr = ptr;
+        ContextFinalization.register(obj, obj.__wbg_ptr, obj);
+        return obj;
+    }
+
     __destroy_into_raw() {
         const ptr = this.__wbg_ptr;
         this.__wbg_ptr = 0;
@@ -259,6 +288,12 @@ export class Context {
         const ptr = this.__destroy_into_raw();
         wasm.__wbg_context_free(ptr, 0);
     }
+    constructor() {
+        const ret = wasm.context_new();
+        this.__wbg_ptr = ret >>> 0;
+        ContextFinalization.register(this, this.__wbg_ptr, this);
+        return this;
+    }
     /**
      * @param {string} variable
      * @param {number} id
@@ -267,6 +302,15 @@ export class Context {
         const ptr0 = passStringToWasm0(variable, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len0 = WASM_VECTOR_LEN;
         wasm.context_set_variable(this.__wbg_ptr, ptr0, len0, id);
+    }
+    /**
+     * @param {string} constructor
+     * @param {number} id
+     */
+    set_constructor(constructor, id) {
+        const ptr0 = passStringToWasm0(constructor, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        wasm.context_set_constructor(this.__wbg_ptr, ptr0, len0, id);
     }
     /**
      * @returns {any}
@@ -326,6 +370,18 @@ function __wbg_get_imports() {
         const ret = arg0 in arg1;
         return ret;
     };
+    imports.wbg.__wbindgen_is_bigint = function(arg0) {
+        const ret = typeof(arg0) === 'bigint';
+        return ret;
+    };
+    imports.wbg.__wbindgen_bigint_from_u64 = function(arg0) {
+        const ret = BigInt.asUintN(64, arg0);
+        return ret;
+    };
+    imports.wbg.__wbindgen_jsval_eq = function(arg0, arg1) {
+        const ret = arg0 === arg1;
+        return ret;
+    };
     imports.wbg.__wbindgen_is_string = function(arg0) {
         const ret = typeof(arg0) === 'string';
         return ret;
@@ -347,6 +403,10 @@ function __wbg_get_imports() {
         const ret = +arg0;
         return ret;
     };
+    imports.wbg.__wbindgen_error_new = function(arg0, arg1) {
+        const ret = new Error(getStringFromWasm0(arg0, arg1));
+        return ret;
+    };
     imports.wbg.__wbindgen_jsval_loose_eq = function(arg0, arg1) {
         const ret = arg0 == arg1;
         return ret;
@@ -362,16 +422,8 @@ function __wbg_get_imports() {
         getDataViewMemory0().setFloat64(arg0 + 8 * 1, isLikeNone(ret) ? 0 : ret, true);
         getDataViewMemory0().setInt32(arg0 + 4 * 0, !isLikeNone(ret), true);
     };
-    imports.wbg.__wbindgen_error_new = function(arg0, arg1) {
-        const ret = new Error(getStringFromWasm0(arg0, arg1));
-        return ret;
-    };
     imports.wbg.__wbindgen_number_new = function(arg0) {
         const ret = arg0;
-        return ret;
-    };
-    imports.wbg.__wbindgen_bigint_from_u64 = function(arg0) {
-        const ret = BigInt.asUintN(64, arg0);
         return ret;
     };
     imports.wbg.__wbindgen_string_new = function(arg0, arg1) {
@@ -399,6 +451,10 @@ function __wbg_get_imports() {
     };
     imports.wbg.__wbindgen_is_function = function(arg0) {
         const ret = typeof(arg0) === 'function';
+        return ret;
+    };
+    imports.wbg.__wbg_new_7a87a0376e40533b = function() {
+        const ret = new Map();
         return ret;
     };
     imports.wbg.__wbg_next_13b477da1eaa3897 = function(arg0) {
@@ -450,6 +506,14 @@ function __wbg_get_imports() {
         const ret = result;
         return ret;
     };
+    imports.wbg.__wbg_set_277a63e77c89279f = function(arg0, arg1, arg2) {
+        const ret = arg0.set(arg1, arg2);
+        return ret;
+    };
+    imports.wbg.__wbg_isSafeInteger_b9dff570f01a9100 = function(arg0) {
+        const ret = Number.isSafeInteger(arg0);
+        return ret;
+    };
     imports.wbg.__wbg_entries_c02034de337d3ee2 = function(arg0) {
         const ret = Object.entries(arg0);
         return ret;
@@ -478,6 +542,12 @@ function __wbg_get_imports() {
         }
         const ret = result;
         return ret;
+    };
+    imports.wbg.__wbindgen_bigint_get_as_i64 = function(arg0, arg1) {
+        const v = arg1;
+        const ret = typeof(v) === 'bigint' ? v : undefined;
+        getDataViewMemory0().setBigInt64(arg0 + 8 * 1, isLikeNone(ret) ? BigInt(0) : ret, true);
+        getDataViewMemory0().setInt32(arg0 + 4 * 0, !isLikeNone(ret), true);
     };
     imports.wbg.__wbindgen_debug_string = function(arg0, arg1) {
         const ret = debugString(arg1);

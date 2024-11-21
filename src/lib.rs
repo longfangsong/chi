@@ -2,6 +2,7 @@
 #![feature(let_chains)]
 #![feature(assert_matches)]
 
+use bootstrapping::Context;
 use syntax::{abst, concrete, Exp};
 use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
 mod bootstrapping;
@@ -37,16 +38,21 @@ pub fn substitute(exp: JsValue, from_variable: &str, to_exp: JsValue) -> JsValue
 }
 
 #[wasm_bindgen]
-pub fn eval(exp: JsValue) -> JsValue {
+pub fn eval_chi(exp: JsValue) -> JsValue {
     let exp: Exp = serde_wasm_bindgen::from_value(exp).unwrap();
     let result = semantic::eval(&exp);
     serde_wasm_bindgen::to_value(&result).unwrap()
 }
 
 #[wasm_bindgen]
-pub fn standard_form(exp: JsValue) -> JsValue {
+pub fn standard_form(exp: JsValue, context: Option<Context>) -> JsValue {
     let exp: Exp = serde_wasm_bindgen::from_value(exp).unwrap();
-    let mut context = bootstrapping::Context::default();
+    let mut context = context.unwrap_or_default();
     let result = bootstrapping::decompile(&exp, &mut context);
-    serde_wasm_bindgen::to_value(&result).unwrap()
+    serde_wasm_bindgen::to_value(&(result, context)).unwrap()
+}
+
+#[wasm_bindgen]
+pub fn get_context_object(v: JsValue) -> Context {
+    serde_wasm_bindgen::from_value(v).unwrap()
 }

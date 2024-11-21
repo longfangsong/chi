@@ -1,10 +1,11 @@
 use bimap::BiMap;
+use serde::{Serialize, Deserialize};
 use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
 
 use crate::syntax::{Branch, Constructor, Exp, Variable};
 
 #[wasm_bindgen]
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct Context {
     variable: BiMap<Variable, usize>,
     next_variable_id: usize,
@@ -38,6 +39,11 @@ impl Context {
 
 #[wasm_bindgen]
 impl Context {
+    #[wasm_bindgen(constructor)]
+    pub fn new() -> Self {
+        Self::default()
+    }
+
     pub fn set_variable(&mut self, variable: Variable, id: usize) {
         if id >= self.next_constructor_id {
             self.next_constructor_id = id + 1;
@@ -48,6 +54,23 @@ impl Context {
             self.variable
                 .insert(existing.clone(), self.next_variable_id);
             self.next_variable_id += 1;
+        } else {
+            self.variable.insert(variable.clone(), id);
+        }
+    }
+
+    pub fn set_constructor(&mut self, constructor: Constructor, id: usize) {
+        if id >= self.next_constructor_id {
+            self.next_constructor_id = id + 1;
+            self.constructor.insert(constructor.clone(), id);
+        } else if let Some(existing) = self.constructor.get_by_right(&id).cloned() {
+            // !!!this invalidates existing decompilation using this context!!!
+            self.constructor.insert(constructor.clone(), id);
+            self.constructor
+                .insert(existing.clone(), self.next_constructor_id);
+            self.next_constructor_id += 1;
+        } else {
+            self.constructor.insert(constructor.clone(), id);
         }
     }
 

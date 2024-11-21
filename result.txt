@@ -1,0 +1,5208 @@
+
+running 1 test
+test semantic::tests::test_eval ... FAILED
+
+failures:
+
+---- semantic::tests::test_eval stdout ----
+{apply: rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+and
+Cons(x, Cons(e, Cons(f, Nil())))
+}
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+Nil()[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Nil()
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+ys
+==========
+
+x[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+x
+==========
+
+append[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+append xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append xs
+==========
+
+ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+ys
+==========
+
+append xs ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append xs ys
+==========
+
+Cons(x, append xs ys)[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Cons(x, append xs ys)
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rev[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+rev xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) (rev xs)[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs)
+==========
+
+x[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+x
+==========
+
+Nil()[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Cons(x, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) (rev xs) Cons(x, Nil())[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs) Cons(x, Nil())
+==========
+
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+xs[xs<-Cons(x, Cons(e, Cons(f, Nil())))]
+results to:
+Cons(x, Cons(e, Cons(f, Nil())))
+==========
+
+Nil()[xs<-Cons(x, Cons(e, Cons(f, Nil())))]
+results to:
+Nil()
+==========
+
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}[xs<-Cons(x, Cons(e, Cons(f, Nil())))]
+results to:
+case Cons(x, Cons(e, Cons(f, Nil()))) of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+xs[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+Cons(e, Cons(f, Nil()))
+==========
+
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(e, Cons(f, Nil()))
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs)[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(e, Cons(f, Nil())))
+==========
+
+x[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+x
+==========
+
+Nil()[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+Cons(x, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs) Cons(x, Nil())[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(e, Cons(f, Nil()))) Cons(x, Nil())
+==========
+
+xs[x<-x]
+results to:
+xs
+==========
+
+ys[x<-x]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-x]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-x]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-x]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-x]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[x<-x]
+results to:
+xs
+==========
+
+Nil()[x<-x]
+results to:
+Nil()
+==========
+
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[x<-x]
+results to:
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[x<-x]
+results to:
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[x<-x]
+results to:
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+e[x<-x]
+results to:
+e
+==========
+
+f[x<-x]
+results to:
+f
+==========
+
+Nil()[x<-x]
+results to:
+Nil()
+==========
+
+Cons(f, Nil())[x<-x]
+results to:
+Cons(f, Nil())
+==========
+
+Cons(e, Cons(f, Nil()))[x<-x]
+results to:
+Cons(e, Cons(f, Nil()))
+==========
+
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(e, Cons(f, Nil()))[x<-x]
+results to:
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(e, Cons(f, Nil()))
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(e, Cons(f, Nil())))[x<-x]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(e, Cons(f, Nil())))
+==========
+
+x[x<-x]
+results to:
+x
+==========
+
+Nil()[x<-x]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[x<-x]
+results to:
+Cons(x, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(e, Cons(f, Nil()))) Cons(x, Nil())[x<-x]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(e, Cons(f, Nil()))) Cons(x, Nil())
+==========
+
+{apply: (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(e, Cons(f, Nil())))
+and
+Cons(x, Nil())
+}
+{apply: rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+and
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(e, Cons(f, Nil()))
+}
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+x[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+x
+==========
+
+append[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+append xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+append xs ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys
+==========
+
+Cons(x, append xs ys)[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+{apply: rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+and
+Cons(e, Cons(f, Nil()))
+}
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+Nil()[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Nil()
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+ys
+==========
+
+x[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+x
+==========
+
+append[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+append xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append xs
+==========
+
+ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+ys
+==========
+
+append xs ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append xs ys
+==========
+
+Cons(x, append xs ys)[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Cons(x, append xs ys)
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rev[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+rev xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) (rev xs)[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs)
+==========
+
+x[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+x
+==========
+
+Nil()[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Cons(x, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) (rev xs) Cons(x, Nil())[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs) Cons(x, Nil())
+==========
+
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+xs[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+Cons(e, Cons(f, Nil()))
+==========
+
+Nil()[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+Nil()
+==========
+
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}[xs<-Cons(e, Cons(f, Nil()))]
+results to:
+case Cons(e, Cons(f, Nil())) of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Cons(f, Nil())]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Cons(f, Nil())]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[xs<-Cons(f, Nil())]
+results to:
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[xs<-Cons(f, Nil())]
+results to:
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+xs[xs<-Cons(f, Nil())]
+results to:
+Cons(f, Nil())
+==========
+
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs[xs<-Cons(f, Nil())]
+results to:
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(f, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs)[xs<-Cons(f, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(f, Nil()))
+==========
+
+x[xs<-Cons(f, Nil())]
+results to:
+x
+==========
+
+Nil()[xs<-Cons(f, Nil())]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[xs<-Cons(f, Nil())]
+results to:
+Cons(x, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs) Cons(x, Nil())[xs<-Cons(f, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(f, Nil())) Cons(x, Nil())
+==========
+
+xs[x<-e]
+results to:
+xs
+==========
+
+ys[x<-e]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-e]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-e]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-e]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-e]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[x<-e]
+results to:
+xs
+==========
+
+Nil()[x<-e]
+results to:
+Nil()
+==========
+
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[x<-e]
+results to:
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[x<-e]
+results to:
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[x<-e]
+results to:
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+f[x<-e]
+results to:
+f
+==========
+
+Nil()[x<-e]
+results to:
+Nil()
+==========
+
+Cons(f, Nil())[x<-e]
+results to:
+Cons(f, Nil())
+==========
+
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(f, Nil())[x<-e]
+results to:
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(f, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(f, Nil()))[x<-e]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(f, Nil()))
+==========
+
+x[x<-e]
+results to:
+e
+==========
+
+Nil()[x<-e]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[x<-e]
+results to:
+Cons(e, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(f, Nil())) Cons(x, Nil())[x<-e]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(f, Nil())) Cons(e, Nil())
+==========
+
+{apply: (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(f, Nil()))
+and
+Cons(e, Nil())
+}
+{apply: rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+and
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Cons(f, Nil())
+}
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+x[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+x
+==========
+
+append[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+append xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+append xs ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys
+==========
+
+Cons(x, append xs ys)[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+{apply: rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+and
+Cons(f, Nil())
+}
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+Nil()[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Nil()
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+ys
+==========
+
+x[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+x
+==========
+
+append[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+append xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append xs
+==========
+
+ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+ys
+==========
+
+append xs ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append xs ys
+==========
+
+Cons(x, append xs ys)[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Cons(x, append xs ys)
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rev[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+rev xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) (rev xs)[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs)
+==========
+
+x[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+x
+==========
+
+Nil()[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Cons(x, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) (rev xs) Cons(x, Nil())[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs) Cons(x, Nil())
+==========
+
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+xs[xs<-Cons(f, Nil())]
+results to:
+Cons(f, Nil())
+==========
+
+Nil()[xs<-Cons(f, Nil())]
+results to:
+Nil()
+==========
+
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}[xs<-Cons(f, Nil())]
+results to:
+case Cons(f, Nil()) of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Nil()]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Nil()]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[xs<-Nil()]
+results to:
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[xs<-Nil()]
+results to:
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+xs[xs<-Nil()]
+results to:
+Nil()
+==========
+
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs[xs<-Nil()]
+results to:
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Nil()
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs)[xs<-Nil()]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Nil())
+==========
+
+x[xs<-Nil()]
+results to:
+x
+==========
+
+Nil()[xs<-Nil()]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[xs<-Nil()]
+results to:
+Cons(x, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs) Cons(x, Nil())[xs<-Nil()]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Nil()) Cons(x, Nil())
+==========
+
+xs[x<-f]
+results to:
+xs
+==========
+
+ys[x<-f]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[x<-f]
+results to:
+xs
+==========
+
+Nil()[x<-f]
+results to:
+Nil()
+==========
+
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[x<-f]
+results to:
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[x<-f]
+results to:
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[x<-f]
+results to:
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+Nil()[x<-f]
+results to:
+Nil()
+==========
+
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Nil()[x<-f]
+results to:
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Nil()
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Nil())[x<-f]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Nil())
+==========
+
+x[x<-f]
+results to:
+f
+==========
+
+Nil()[x<-f]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[x<-f]
+results to:
+Cons(f, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Nil()) Cons(x, Nil())[x<-f]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Nil()) Cons(f, Nil())
+==========
+
+{apply: (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Nil())
+and
+Cons(f, Nil())
+}
+{apply: rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+and
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) Nil()
+}
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+x[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+x
+==========
+
+append[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+append xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+append xs ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys
+==========
+
+Cons(x, append xs ys)[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+{apply: rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+and
+Nil()
+}
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+Nil()[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Nil()
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+ys
+==========
+
+x[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+x
+==========
+
+append[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+append xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append xs
+==========
+
+ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+ys
+==========
+
+append xs ys[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+append xs ys
+==========
+
+Cons(x, append xs ys)[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Cons(x, append xs ys)
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rev[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}
+==========
+
+xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+xs
+==========
+
+rev xs[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) (rev xs)[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs)
+==========
+
+x[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+x
+==========
+
+Nil()[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+Cons(x, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) (rev xs) Cons(x, Nil())[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) ((rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}) xs) Cons(x, Nil())
+==========
+
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}[rev<-rec rev = λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) (rev xs) Cons(x, Nil())
+}]
+results to:
+λxs.case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+xs[xs<-Nil()]
+results to:
+Nil()
+==========
+
+Nil()[xs<-Nil()]
+results to:
+Nil()
+==========
+
+case xs of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}[xs<-Nil()]
+results to:
+case Nil() of {
+  Nil() -> Nil();
+  Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) ((rec rev = λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> (rec append = λxs.λys.case xs of {
+      Nil() -> ys;
+      Cons(x, xs) -> Cons(x, append xs ys)
+    }) (rev xs) Cons(x, Nil())
+  }) xs) Cons(x, Nil())
+}
+==========
+
+xs[xs<-Nil()]
+results to:
+Nil()
+==========
+
+ys[xs<-Nil()]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Nil()]
+results to:
+case Nil() of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Nil()]
+results to:
+λys.case Nil() of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+Nil()[ys<-Cons(f, Nil())]
+results to:
+Nil()
+==========
+
+ys[ys<-Cons(f, Nil())]
+results to:
+Cons(f, Nil())
+==========
+
+x[ys<-Cons(f, Nil())]
+results to:
+x
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[ys<-Cons(f, Nil())]
+results to:
+xs
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs[ys<-Cons(f, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[ys<-Cons(f, Nil())]
+results to:
+Cons(f, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys[ys<-Cons(f, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(f, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)[ys<-Cons(f, Nil())]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(f, Nil()))
+==========
+
+case Nil() of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+case Nil() of {
+  Nil() -> Cons(f, Nil());
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs Cons(f, Nil()))
+}
+==========
+
+xs[xs<-Cons(f, Nil())]
+results to:
+Cons(f, Nil())
+==========
+
+ys[xs<-Cons(f, Nil())]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Cons(f, Nil())]
+results to:
+case Cons(f, Nil()) of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Cons(f, Nil())]
+results to:
+λys.case Cons(f, Nil()) of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+f[ys<-Cons(e, Nil())]
+results to:
+f
+==========
+
+Nil()[ys<-Cons(e, Nil())]
+results to:
+Nil()
+==========
+
+Cons(f, Nil())[ys<-Cons(e, Nil())]
+results to:
+Cons(f, Nil())
+==========
+
+ys[ys<-Cons(e, Nil())]
+results to:
+Cons(e, Nil())
+==========
+
+x[ys<-Cons(e, Nil())]
+results to:
+x
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(e, Nil())]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(e, Nil())]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(e, Nil())]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[ys<-Cons(e, Nil())]
+results to:
+xs
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs[ys<-Cons(e, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[ys<-Cons(e, Nil())]
+results to:
+Cons(e, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys[ys<-Cons(e, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(e, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)[ys<-Cons(e, Nil())]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(e, Nil()))
+==========
+
+case Cons(f, Nil()) of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[ys<-Cons(e, Nil())]
+results to:
+case Cons(f, Nil()) of {
+  Nil() -> Cons(e, Nil());
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs Cons(e, Nil()))
+}
+==========
+
+x[xs<-Nil()]
+results to:
+x
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Nil()]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Nil()]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[xs<-Nil()]
+results to:
+Nil()
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs[xs<-Nil()]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil()
+==========
+
+e[xs<-Nil()]
+results to:
+e
+==========
+
+Nil()[xs<-Nil()]
+results to:
+Nil()
+==========
+
+Cons(e, Nil())[xs<-Nil()]
+results to:
+Cons(e, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(e, Nil())[xs<-Nil()]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(e, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(e, Nil()))[xs<-Nil()]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(e, Nil()))
+==========
+
+x[x<-f]
+results to:
+f
+==========
+
+xs[x<-f]
+results to:
+xs
+==========
+
+ys[x<-f]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+Nil()[x<-f]
+results to:
+Nil()
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil()[x<-f]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil()
+==========
+
+e[x<-f]
+results to:
+e
+==========
+
+Nil()[x<-f]
+results to:
+Nil()
+==========
+
+Cons(e, Nil())[x<-f]
+results to:
+Cons(e, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(e, Nil())[x<-f]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(e, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(e, Nil()))[x<-f]
+results to:
+Cons(f, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(e, Nil()))
+==========
+
+{apply: (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil()
+and
+Cons(e, Nil())
+}
+{apply: rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+and
+Nil()
+}
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+x[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+x
+==========
+
+append[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+append xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+append xs ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys
+==========
+
+Cons(x, append xs ys)[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+xs[xs<-Nil()]
+results to:
+Nil()
+==========
+
+ys[xs<-Nil()]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Nil()]
+results to:
+case Nil() of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Nil()]
+results to:
+λys.case Nil() of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+Nil()[ys<-Cons(e, Nil())]
+results to:
+Nil()
+==========
+
+ys[ys<-Cons(e, Nil())]
+results to:
+Cons(e, Nil())
+==========
+
+x[ys<-Cons(e, Nil())]
+results to:
+x
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(e, Nil())]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(e, Nil())]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(e, Nil())]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[ys<-Cons(e, Nil())]
+results to:
+xs
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs[ys<-Cons(e, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[ys<-Cons(e, Nil())]
+results to:
+Cons(e, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys[ys<-Cons(e, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(e, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)[ys<-Cons(e, Nil())]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(e, Nil()))
+==========
+
+case Nil() of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[ys<-Cons(e, Nil())]
+results to:
+case Nil() of {
+  Nil() -> Cons(e, Nil());
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs Cons(e, Nil()))
+}
+==========
+
+xs[xs<-Cons(f, Cons(e, Nil()))]
+results to:
+Cons(f, Cons(e, Nil()))
+==========
+
+ys[xs<-Cons(f, Cons(e, Nil()))]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Cons(f, Cons(e, Nil()))]
+results to:
+case Cons(f, Cons(e, Nil())) of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Cons(f, Cons(e, Nil()))]
+results to:
+λys.case Cons(f, Cons(e, Nil())) of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+f[ys<-Cons(x, Nil())]
+results to:
+f
+==========
+
+e[ys<-Cons(x, Nil())]
+results to:
+e
+==========
+
+Nil()[ys<-Cons(x, Nil())]
+results to:
+Nil()
+==========
+
+Cons(e, Nil())[ys<-Cons(x, Nil())]
+results to:
+Cons(e, Nil())
+==========
+
+Cons(f, Cons(e, Nil()))[ys<-Cons(x, Nil())]
+results to:
+Cons(f, Cons(e, Nil()))
+==========
+
+ys[ys<-Cons(x, Nil())]
+results to:
+Cons(x, Nil())
+==========
+
+x[ys<-Cons(x, Nil())]
+results to:
+x
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(x, Nil())]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(x, Nil())]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(x, Nil())]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[ys<-Cons(x, Nil())]
+results to:
+xs
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs[ys<-Cons(x, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[ys<-Cons(x, Nil())]
+results to:
+Cons(x, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys[ys<-Cons(x, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(x, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)[ys<-Cons(x, Nil())]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(x, Nil()))
+==========
+
+case Cons(f, Cons(e, Nil())) of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[ys<-Cons(x, Nil())]
+results to:
+case Cons(f, Cons(e, Nil())) of {
+  Nil() -> Cons(x, Nil());
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs Cons(x, Nil()))
+}
+==========
+
+x[xs<-Cons(e, Nil())]
+results to:
+x
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Cons(e, Nil())]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Cons(e, Nil())]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[xs<-Cons(e, Nil())]
+results to:
+Cons(e, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs[xs<-Cons(e, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Cons(e, Nil())
+==========
+
+x[xs<-Cons(e, Nil())]
+results to:
+x
+==========
+
+Nil()[xs<-Cons(e, Nil())]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[xs<-Cons(e, Nil())]
+results to:
+Cons(x, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(x, Nil())[xs<-Cons(e, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Cons(e, Nil()) Cons(x, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(x, Nil()))[xs<-Cons(e, Nil())]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Cons(e, Nil()) Cons(x, Nil()))
+==========
+
+x[x<-f]
+results to:
+f
+==========
+
+xs[x<-f]
+results to:
+xs
+==========
+
+ys[x<-f]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-f]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+e[x<-f]
+results to:
+e
+==========
+
+Nil()[x<-f]
+results to:
+Nil()
+==========
+
+Cons(e, Nil())[x<-f]
+results to:
+Cons(e, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Cons(e, Nil())[x<-f]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Cons(e, Nil())
+==========
+
+x[x<-f]
+results to:
+f
+==========
+
+Nil()[x<-f]
+results to:
+Nil()
+==========
+
+Cons(x, Nil())[x<-f]
+results to:
+Cons(f, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Cons(e, Nil()) Cons(x, Nil())[x<-f]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Cons(e, Nil()) Cons(f, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Cons(e, Nil()) Cons(x, Nil()))[x<-f]
+results to:
+Cons(f, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Cons(e, Nil()) Cons(f, Nil()))
+==========
+
+{apply: (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Cons(e, Nil())
+and
+Cons(f, Nil())
+}
+{apply: rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+and
+Cons(e, Nil())
+}
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+x[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+x
+==========
+
+append[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+append xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+append xs ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys
+==========
+
+Cons(x, append xs ys)[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+xs[xs<-Cons(e, Nil())]
+results to:
+Cons(e, Nil())
+==========
+
+ys[xs<-Cons(e, Nil())]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Cons(e, Nil())]
+results to:
+case Cons(e, Nil()) of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Cons(e, Nil())]
+results to:
+λys.case Cons(e, Nil()) of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+e[ys<-Cons(f, Nil())]
+results to:
+e
+==========
+
+Nil()[ys<-Cons(f, Nil())]
+results to:
+Nil()
+==========
+
+Cons(e, Nil())[ys<-Cons(f, Nil())]
+results to:
+Cons(e, Nil())
+==========
+
+ys[ys<-Cons(f, Nil())]
+results to:
+Cons(f, Nil())
+==========
+
+x[ys<-Cons(f, Nil())]
+results to:
+x
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[ys<-Cons(f, Nil())]
+results to:
+xs
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs[ys<-Cons(f, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[ys<-Cons(f, Nil())]
+results to:
+Cons(f, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys[ys<-Cons(f, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(f, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)[ys<-Cons(f, Nil())]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(f, Nil()))
+==========
+
+case Cons(e, Nil()) of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+case Cons(e, Nil()) of {
+  Nil() -> Cons(f, Nil());
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs Cons(f, Nil()))
+}
+==========
+
+x[xs<-Nil()]
+results to:
+x
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Nil()]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[xs<-Nil()]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[xs<-Nil()]
+results to:
+Nil()
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs[xs<-Nil()]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil()
+==========
+
+f[xs<-Nil()]
+results to:
+f
+==========
+
+Nil()[xs<-Nil()]
+results to:
+Nil()
+==========
+
+Cons(f, Nil())[xs<-Nil()]
+results to:
+Cons(f, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(f, Nil())[xs<-Nil()]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(f, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(f, Nil()))[xs<-Nil()]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(f, Nil()))
+==========
+
+x[x<-e]
+results to:
+e
+==========
+
+xs[x<-e]
+results to:
+xs
+==========
+
+ys[x<-e]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-e]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-e]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-e]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[x<-e]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+Nil()[x<-e]
+results to:
+Nil()
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil()[x<-e]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil()
+==========
+
+f[x<-e]
+results to:
+f
+==========
+
+Nil()[x<-e]
+results to:
+Nil()
+==========
+
+Cons(f, Nil())[x<-e]
+results to:
+Cons(f, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(f, Nil())[x<-e]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(f, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(f, Nil()))[x<-e]
+results to:
+Cons(e, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil() Cons(f, Nil()))
+==========
+
+{apply: (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) Nil()
+and
+Cons(f, Nil())
+}
+{apply: rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+and
+Nil()
+}
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+x[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+x
+==========
+
+append[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+xs
+==========
+
+append xs[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+ys
+==========
+
+append xs ys[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys
+==========
+
+Cons(x, append xs ys)[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[append<-rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+xs[xs<-Nil()]
+results to:
+Nil()
+==========
+
+ys[xs<-Nil()]
+results to:
+ys
+==========
+
+case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Nil()]
+results to:
+case Nil() of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[xs<-Nil()]
+results to:
+λys.case Nil() of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}
+==========
+
+Nil()[ys<-Cons(f, Nil())]
+results to:
+Nil()
+==========
+
+ys[ys<-Cons(f, Nil())]
+results to:
+Cons(f, Nil())
+==========
+
+x[ys<-Cons(f, Nil())]
+results to:
+x
+==========
+
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}
+==========
+
+xs[ys<-Cons(f, Nil())]
+results to:
+xs
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs[ys<-Cons(f, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs
+==========
+
+ys[ys<-Cons(f, Nil())]
+results to:
+Cons(f, Nil())
+==========
+
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys[ys<-Cons(f, Nil())]
+results to:
+(rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(f, Nil())
+==========
+
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs ys)[ys<-Cons(f, Nil())]
+results to:
+Cons(x, (rec append = λxs.λys.case xs of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, append xs ys)
+}) xs Cons(f, Nil()))
+==========
+
+case Nil() of {
+  Nil() -> ys;
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs ys)
+}[ys<-Cons(f, Nil())]
+results to:
+case Nil() of {
+  Nil() -> Cons(f, Nil());
+  Cons(x, xs) -> Cons(x, (rec append = λxs.λys.case xs of {
+    Nil() -> ys;
+    Cons(x, xs) -> Cons(x, append xs ys)
+  }) xs Cons(f, Nil()))
+}
+==========
+
+thread 'semantic::tests::test_eval' panicked at src/semantic/mod.rs:71:9:
+assertion `left == right` failed
+  left: "Cons(f, Cons(e, Cons(f, Nil())))"
+ right: "Cons(f, Cons(e, Cons(x, Nil())))"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    semantic::tests::test_eval
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 20 filtered out; finished in 0.01s
+

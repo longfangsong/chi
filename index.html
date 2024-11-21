@@ -1,107 +1,202 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>χ</title>
-        <!-- <link rel="stylesheet" href="./style.css" /> -->
-        <link rel="icon" href="./favicon.ico" type="image/x-icon" />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
-        />
-        <script src="https://cdn.tailwindcss.com"></script>
-    </head>
-    <body>
-        <main>
-            <h1>χ</h1>
-            <textarea id="input"
-                placeholder="Your χ program here, in concrete or abstract syntax"
-                class="font-mono flex min-h-[80px] w-full rounded-md border border-input bg-background
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>χ</title>
+    <!-- <link rel="stylesheet" href="./style.css" /> -->
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "rgb(24, 24, 27)",
+                        'primary-foreground': "rgb(250, 250, 250)",
+                        clifford: '#da373d',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <main class="container mx-auto p-4">
+        <h1 class="text-4xl my-4">χ language</h1>
+        <textarea id="input" placeholder="Your χ program here, in concrete or abstract syntax" class="font-mono flex min-h-[80px] w-full rounded-md border border-input bg-background
                     px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
                     focus-visible:ring-offset-2 disabled:cursor-not-allowed
-                    disabled:opacity-50 md:text-sm
+                    disabled:opacity-50 md:text-sm h-48
                     "></textarea>
-            <pre><code id="highlighted" class="language-chi"></code></pre>
-            <pre><code id="abstract" class="language-chi"></code></pre>
-            <pre><code id="output" class="language-chi"></code></pre>
-            <button id="eval">Eval</button>
-            <br />
-            <input id="var"></input>
+        <div>
+            <h2 class="text-2xl">Concrete</h2>
+            <pre class="my-4"><code id="highlighted" class="language-chi"></code></pre>
+        </div>
+        <div>
+            <h2 class="text-2xl">Abstract</h2>
+            <pre class="my-4"><code id="abstract" class="language-chi"></code></pre>
+        </div>
+        <div>
+            <h2 class="text-2xl">Standard χ representation</h2>
+            <div class="my-4 grid grid-cols-2" id="context">
+                <div>
+                    <h3 class="text-lg">Variables</h4>
+                        <table id="variables" class="table-auto">
+                            <thead>
+                                <tr>
+                                    <th class="min-w-24 border">Name</th>
+                                    <th class="min-w-24 border">Id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                </div>
+                <div>
+                    <h3 class="text-lg">Constructors</h4>
+                        <table id="constructors" class="table-auto">
+                            <thead>
+                                <tr>
+                                    <th class="min-w-24 border">Name</th>
+                                    <th class="min-w-24 border">Id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+            <pre class="my-4"><code id="chi-representation" class="language-chi"></code></pre>
+        </div>
+        <div>
+            <h2 class="text-2xl">Evaluate result</h2>
+            <pre class="my-4"><code id="output" class="language-chi"></code></pre>
+        </div>
+        <button id="eval"
+            class="inline-flex items-center w-full my-4
+                justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background 
+                transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
+                focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none 
+                [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Eval</button>
+        <div class="flex items-center gap-2">
+            <input id="var"
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"></input>
             to
-            <input id="to-exp"></input>
-            <button id="substitute">Substitute</button>
-        </main>
-        <script type="module">
-            import hljs from "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/highlight.min.js";
-            import chi from "./chi.js";
-            import init, {
-                parse,
-                eval_chi,
-                fmt,
-                fmt_abstract,
-                substitute_chi
-            } from "./pkg/chi.js";
+            <input id="to-exp"
+                class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"></input>
+            <button id="substitute"
+                class="inline-flex items-center my-4
+            justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background 
+            transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
+            focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none 
+                [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Substitute</button>
+        </div>
+    </main>
+    <script type="module">
+        import hljs from "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/highlight.min.js";
+        import chi from "./chi.js";
+        import init, {
+            parse,
+            format_abstract,
+            format_concrete,
+            substitute,
+            eval_chi,
+            standard_form,
+            get_context_object,
+            Context
+        } from "./pkg/chi.js";
 
-            async function run() {
-                await init();
+        async function run() {
+            await init();
 
-                const evalButton = document.querySelector("#eval");
-                const substituteButton = document.querySelector("#substitute");
-                evalButton.addEventListener("click", () => {
-                    const input = document.querySelector("#input").value;
-                    const parsed = parse(input);
-                    document
-                        .querySelector("#highlighted")
-                        .removeAttribute("data-highlighted");
-                    document
-                        .querySelector("#output")
-                        .removeAttribute("data-highlighted");
-                    document
-                        .querySelector("#abstract")
-                        .removeAttribute("data-highlighted");
-                    document.querySelector("#highlighted").textContent =
-                        fmt(parsed);
-                    document.querySelector("#abstract").textContent =
-                        fmt_abstract(parsed);
-                    try {
-                      const result = eval_chi(parsed);
-                      document.querySelector("#output").textContent = fmt(result);
-                    } catch (e) {
-                      document.querySelector("#output").textContent = "May not terminate!";
-                    }
-                    hljs.registerLanguage("chi", chi);
-                    hljs.highlightAll();
+            const evalButton = document.querySelector("#eval");
+            const substituteButton = document.querySelector("#substitute");
+            evalButton.addEventListener("click", () => {
+                const input = document.querySelector("#input").value;
+                const parsed = parse(input);
+                let context = new Context();
+                const variables = document.querySelectorAll("#variables tbody tr");
+                variables.forEach(row => {
+                    const name = row.querySelector("code").textContent;
+                    const id = parseInt(row.querySelector("input").value);
+                    context.set_variable(name, id);
                 });
-                substituteButton.addEventListener("click", () => {
-                    const input = document.querySelector("#input").value;
-                    const parsed = parse(input);
-                    const varName = document.querySelector("#var").value;
-                    const toExp = document.querySelector("#to-exp").value;
-                    const parsedTo = parse(toExp);
-                    const result = substitute_chi(parsed, varName, parsedTo);
-                    document
-                        .querySelector("#highlighted")
-                        .removeAttribute("data-highlighted");
-                    document
-                        .querySelector("#output")
-                        .removeAttribute("data-highlighted");
-                    document
-                        .querySelector("#abstract")
-                        .removeAttribute("data-highlighted");
-                    document.querySelector("#highlighted").textContent =
-                        fmt(parsed);
-                    document.querySelector("#output").textContent = fmt(result);
-                    document.querySelector("#abstract").textContent =
-                        fmt_abstract(parsed);
-                    hljs.registerLanguage("chi", chi);
-                    hljs.highlightAll();
+                const constructors = document.querySelectorAll("#constructors tbody tr");
+                constructors.forEach(row => {
+                    const name = row.querySelector("code").textContent;
+                    const id = parseInt(row.querySelector("input").value);
+                    context.set_constructor(name, id);
                 });
-            }
+                const [chiRepresentation, ctx] = standard_form(parsed, context);
+                context = get_context_object(ctx);
+                console.log(context);
+                document
+                    .querySelector("#highlighted")
+                    .removeAttribute("data-highlighted");
+                document
+                    .querySelector("#output")
+                    .removeAttribute("data-highlighted");
+                document
+                    .querySelector("#abstract")
+                    .removeAttribute("data-highlighted");
+                document.querySelector("#chi-representation").removeAttribute("data-highlighted");
+                document.querySelector("#chi-representation").textContent =
+                    format_concrete(chiRepresentation);
+                document.querySelector("#highlighted").textContent =
+                    format_concrete(parsed);
+                document.querySelector("#abstract").textContent =
+                    format_abstract(parsed);
+                document.querySelector("#variables > tbody").innerHTML =
+                    Array.from(context.variable_assignments())
+                        .map(([name, id]) => `<tr><td class="border px-2"><code>${name}</code></td><td class="border px-2"><input type="number" value="${id}"/></td></tr>`)
+                        .join('');
+                document.querySelector("#constructors > tbody").innerHTML =
+                    Array.from(context.constructor_assignments())
+                        .map(([name, id]) => `<tr><td class="border px-2"><code>${name}</code></td><td class="border px-2"><input type="number" value="${id}"/></td></tr>`)
+                        .join('');
+                try {
+                    const result = eval_chi(parsed);
+                    document.querySelector("#output").textContent = format_concrete(result);
+                } catch (e) {
+                    document.querySelector("#output").textContent = "May not terminate!";
+                }
+                hljs.registerLanguage("chi", chi);
+                hljs.highlightAll();
+            });
+            substituteButton.addEventListener("click", () => {
+                const input = document.querySelector("#input").value;
+                const parsed = parse(input);
+                const varName = document.querySelector("#var").value;
+                const toExp = document.querySelector("#to-exp").value;
+                const parsedTo = parse(toExp);
+                const result = substitute(parsed, varName, parsedTo);
+                document
+                    .querySelector("#highlighted")
+                    .removeAttribute("data-highlighted");
+                document
+                    .querySelector("#output")
+                    .removeAttribute("data-highlighted");
+                document
+                    .querySelector("#abstract")
+                    .removeAttribute("data-highlighted");
+                document.querySelector("#chi-representation").removeAttribute("data-highlighted");
+                document.querySelector("#highlighted").textContent =
+                    format_concrete(parsed);
+                document.querySelector("#output").textContent = format_concrete(result);
+                document.querySelector("#abstract").textContent =
+                    format_abstract(parsed);
+                hljs.registerLanguage("chi", chi);
+                hljs.highlightAll();
+            });
+        }
+        run();
+    </script>
+</body>
 
-            run();
-        </script>
-    </body>
 </html>

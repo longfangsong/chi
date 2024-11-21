@@ -1,4 +1,4 @@
-use crate::syntax::{Branch, Exp};
+use crate::syntax::{concrete, Branch, Exp};
 
 mod substitute;
 pub use substitute::substitute;
@@ -16,6 +16,7 @@ pub fn eval(exp: &Exp) -> Exp {
     match exp {
         Exp::Var(x) => Exp::Var(x.clone()),
         Exp::Apply(f, param) => {
+            println!("{{apply: {}\nand\n{}\n}}", concrete::format(f), concrete::format(param));
             if let Exp::Lambda(x, exp) = eval(f) {
                 let param = eval(param);
                 eval(&substitute(&exp, &x, &param))
@@ -44,7 +45,7 @@ pub fn eval(exp: &Exp) -> Exp {
 
 #[cfg(test)]
 mod tests {
-    use crate::{semantic::eval, syntax::concrete};
+    use crate::{semantic::eval, syntax::{abst, concrete}};
 
     #[test]
     fn test_eval() {

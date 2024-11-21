@@ -1,4 +1,4 @@
-use crate::syntax::{Branch, Exp};
+use crate::syntax::{concrete, Branch, Exp};
 
 fn substitute_branch(branch: &Branch, from_variable: &str, to_exp: &Exp) -> Branch {
     if branch.parameters.contains(&from_variable.to_string()) {
@@ -17,7 +17,7 @@ fn substitute_branch(branch: &Branch, from_variable: &str, to_exp: &Exp) -> Bran
 }
 
 pub fn substitute(exp: &Exp, from_variable: &str, to_exp: &Exp) -> Exp {
-    match exp {
+    let result = match exp {
         Exp::Apply(f, x) => Exp::Apply(
             Box::new(substitute(f, from_variable, to_exp)),
             Box::new(substitute(x, from_variable, to_exp)),
@@ -44,7 +44,10 @@ pub fn substitute(exp: &Exp, from_variable: &str, to_exp: &Exp) -> Exp {
                 .map(|e| substitute(e, from_variable, to_exp))
                 .collect(),
         ),
-    }
+    };
+    print!("{}[{}<-{}]\nresults to:\n", concrete::format(exp), from_variable, concrete::format(to_exp));
+    println!("{}\n==========\n", concrete::format(&result));
+    result
 }
 
 #[cfg(test)]
