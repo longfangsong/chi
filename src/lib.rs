@@ -5,15 +5,14 @@
 use bootstrapping::Context;
 use syntax::{abst, concrete, Exp};
 use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
-mod bootstrapping;
-mod semantic;
-mod syntax;
+
+pub mod bootstrapping;
+pub mod semantic;
+pub mod syntax;
 
 #[wasm_bindgen]
 pub fn parse(code: &str) -> JsValue {
-    let expr = concrete::parse(code).unwrap_or_else(|_| {
-        abst::parse(code).unwrap()
-    });
+    let expr = concrete::parse(code).unwrap_or_else(|_| abst::parse(code).unwrap());
     serde_wasm_bindgen::to_value(&expr).unwrap()
 }
 

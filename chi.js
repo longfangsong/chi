@@ -1,3 +1,4 @@
+// For code highlighter for the χ language
 var ChiGrammar = (() => {
   "use strict";
   return (e) => {
