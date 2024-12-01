@@ -27,7 +27,7 @@ fn format_exp(exp: &Exp, nest_level: usize) -> String {
                 _ => format_exp(lhs, nest_level).to_string(),
             };
             let rhs = match rhs.as_ref() {
-                Exp::Apply(_, _) => format!("({})", format_exp(rhs, nest_level)),
+                Exp::Apply(_, _) | Exp::Lambda(_, _) => format!("({})", format_exp(rhs, nest_level)),
                 _ => format_exp(rhs, nest_level).to_string(),
             };
             format!("{} {}", lhs, rhs)

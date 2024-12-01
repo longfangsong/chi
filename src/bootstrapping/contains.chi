@@ -1,0 +1,7 @@
+rec contains = λm.λxs. case xs of {
+    Nil() → False();
+    Cons(n, ys) → case (equal m n) of {
+        True() → True();
+        False() → contains m ys
+    }
+}

@@ -1,0 +1,28 @@
+rec subst = λfrom.λto.λexp.case exp of {
+  Apply(e1, e2) -> Apply(subst from to e1, subst from to e2);
+  Lambda(x, e) -> case equal x from of {
+    True() -> Lambda(x, e);
+    False() -> Lambda(x, subst from to e)
+  };
+  Case(e, bs) -> Case(subst from to e, (rec substBranches = λfrom.λto.λbs.case bs of {
+    Nil() -> Nil();
+    Cons(b, bs) -> Cons(case b of {
+      Branch(c, xs, e) -> case contains from xs of {
+        True() -> Branch(c, xs, e);
+        False() -> Branch(c, xs, subst from to e)
+      }
+    }, substBranches from to bs)
+  }) from to bs);
+  Rec(x, e) -> case equal x from of {
+    True() -> Rec(x, e);
+    False() -> Rec(x, subst from to e)
+  };
+  Var(x) -> case equal x from of {
+    True() -> to;
+    False() -> Var(x)
+  };
+  Const(c, es) -> Const(c, rec paramSubst = λfrom.λto.λps.case ps of {
+    Nil() -> Nil();
+    Cons(p, ps) -> Cons(subst from to p, paramSubst from to ps)
+  })
+}

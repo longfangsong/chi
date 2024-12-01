@@ -26,9 +26,13 @@ pub fn eval(exp: &Exp) -> Exp {
         Exp::Case(e, branches) => {
             let exp = eval(e);
             if let Exp::Const(constructor, exps) = exp {
-                if let Some(branch) = branches.iter().find(|branch| {
-                    branch.constructor == constructor && branch.parameters.len() == exps.len()
-                }) {
+                if let Some(branch) = branches
+                    .iter()
+                    .find(|branch| branch.constructor == constructor)
+                {
+                    if branch.parameters.len() != exps.len() {
+                        panic!("Number of parameters does not match");
+                    }
                     return eval_branch(&exps, branch);
                 }
             }
@@ -74,6 +78,20 @@ mod tests {
         assert_eq!(concrete::format(&result), "C()");
 
         let code = r#"((λx.x)(λx.x))(λx.x)"#;
+        let term = concrete::parse(code).unwrap();
+        let result = eval(&term);
+        assert_eq!(concrete::format(&result), "λx.x");
+
+        let code = r#"((λx.x)(λx.x))(λx.x)"#;
+        let term = concrete::parse(code).unwrap();
+        let result = eval(&term);
+        assert_eq!(concrete::format(&result), "λx.x");
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_eval_too_much_arg() {
+        let code = r#"case C(C()) of { C() → C(); C(x) → x }"#;
         let term = concrete::parse(code).unwrap();
         let result = eval(&term);
         assert_eq!(concrete::format(&result), "λx.x");

@@ -1,0 +1,10 @@
+rec equal = λexp1.λexp2. case exp1 of {
+    Zero() → case exp2 of {
+        Zero() → True();
+        Suc(e2) → False()
+    };
+    Suc(e1) → case exp2 of {
+        Suc(e2) → equal e1 e2;
+        Zero() → False()
+    }
+}
