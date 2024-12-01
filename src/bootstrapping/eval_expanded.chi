@@ -1,0 +1,254 @@
+rec eval = λp.case p of {
+  Apply(e1, e2) -> case eval e1 of {
+    Lambda(x, e) -> eval ((rec subst = λfrom.λto.λexp.case exp of {
+      Apply(e1, e2) -> Apply(subst from to e1, subst from to e2);
+      Lambda(x, e) -> case (rec equal = λexp1.λexp2.case exp1 of {
+        Zero() -> case exp2 of {
+          Zero() -> True();
+          Suc(e2) -> False()
+        };
+        Suc(e1) -> case exp2 of {
+          Suc(e2) -> equal e1 e2;
+          Zero() -> False()
+        }
+      }) x from of {
+        True() -> Lambda(x, e);
+        False() -> Lambda(x, subst from to e)
+      };
+      Case(e, bs) -> Case(subst from to e, (rec substBranches = λfrom.λto.λbs.case bs of {
+        Nil() -> Nil();
+        Cons(b, bs) -> Cons(case b of {
+          Branch(c, xs, e) -> case (rec contains = λm.λxs.case xs of {
+            Nil() -> False();
+            Cons(n, ys) -> case (rec equal = λexp1.λexp2.case exp1 of {
+              Zero() -> case exp2 of {
+                Zero() -> True();
+                Suc(e2) -> False()
+              };
+              Suc(e1) -> case exp2 of {
+                Suc(e2) -> equal e1 e2;
+                Zero() -> False()
+              }
+            }) m n of {
+              True() -> True();
+              False() -> contains m ys
+            }
+          }) from xs of {
+            True() -> Branch(c, xs, e);
+            False() -> Branch(c, xs, subst from to e)
+          }
+        }, substBranches from to bs)
+      }) from to bs);
+      Rec(x, e) -> case (rec equal = λexp1.λexp2.case exp1 of {
+        Zero() -> case exp2 of {
+          Zero() -> True();
+          Suc(e2) -> False()
+        };
+        Suc(e1) -> case exp2 of {
+          Suc(e2) -> equal e1 e2;
+          Zero() -> False()
+        }
+      }) x from of {
+        True() -> Rec(x, e);
+        False() -> Rec(x, subst from to e)
+      };
+      Var(x) -> case (rec equal = λexp1.λexp2.case exp1 of {
+        Zero() -> case exp2 of {
+          Zero() -> True();
+          Suc(e2) -> False()
+        };
+        Suc(e1) -> case exp2 of {
+          Suc(e2) -> equal e1 e2;
+          Zero() -> False()
+        }
+      }) x from of {
+        True() -> to;
+        False() -> Var(x)
+      };
+      Const(c, es) -> Const(c, rec paramSubst = λfrom.λto.λps.case ps of {
+        Nil() -> Nil();
+        Cons(p, ps) -> Cons(subst from to p, paramSubst from to ps)
+      })
+    }) x (eval e2) e)
+  };
+  Case(e, bs) -> case eval e of {
+    Const(c, es) -> case (rec lookup = λc.λbs.case bs of {
+      Cons(b, bs) -> case b of {
+        Branch(c', xs', e') -> case (rec equal = λexp1.λexp2.case exp1 of {
+              Zero() -> case exp2 of {
+                Zero() -> True();
+                Suc(e2) -> False()
+              };
+              Suc(e1) -> case exp2 of {
+                Suc(e2) -> equal e1 e2;
+                Zero() -> False()
+              }
+            }) c c' of {
+          True() -> Branch(c', xs', e');
+          False() -> lookup c bs
+        }
+      }
+    }) c bs of {
+      Branch(_, xs, e) -> eval ((rec substs = λxs.λds.λe.case xs of {
+        Nil() -> e;
+        Cons(x, xs) -> case ds of {
+          Cons(d, ds) -> (rec subst = λfrom.λto.λexp.case exp of {
+            Apply(e1, e2) -> Apply(subst from to e1, subst from to e2);
+            Lambda(x, e) -> case (rec equal = λexp1.λexp2.case exp1 of {
+              Zero() -> case exp2 of {
+                Zero() -> True();
+                Suc(e2) -> False()
+              };
+              Suc(e1) -> case exp2 of {
+                Suc(e2) -> equal e1 e2;
+                Zero() -> False()
+              }
+            }) x from of {
+              True() -> Lambda(x, e);
+              False() -> Lambda(x, subst from to e)
+            };
+            Case(e, bs) -> Case(subst from to e, (rec substBranches = λfrom.λto.λbs.case bs of {
+              Nil() -> Nil();
+              Cons(b, bs) -> Cons(case b of {
+                Branch(c, xs, e) -> case (rec contains = λm.λxs.case xs of {
+                  Nil() -> False();
+                  Cons(n, ys) -> case (rec equal = λexp1.λexp2.case exp1 of {
+                    Zero() -> case exp2 of {
+                      Zero() -> True();
+                      Suc(e2) -> False()
+                    };
+                    Suc(e1) -> case exp2 of {
+                      Suc(e2) -> equal e1 e2;
+                      Zero() -> False()
+                    }
+                  }) m n of {
+                    True() -> True();
+                    False() -> contains m ys
+                  }
+                }) from xs of {
+                  True() -> Branch(c, xs, e);
+                  False() -> Branch(c, xs, subst from to e)
+                }
+              }, substBranches from to bs)
+            }) from to bs);
+            Rec(x, e) -> case (rec equal = λexp1.λexp2.case exp1 of {
+              Zero() -> case exp2 of {
+                Zero() -> True();
+                Suc(e2) -> False()
+              };
+              Suc(e1) -> case exp2 of {
+                Suc(e2) -> equal e1 e2;
+                Zero() -> False()
+              }
+            }) x from of {
+              True() -> Rec(x, e);
+              False() -> Rec(x, subst from to e)
+            };
+            Var(x) -> case (rec equal = λexp1.λexp2.case exp1 of {
+              Zero() -> case exp2 of {
+                Zero() -> True();
+                Suc(e2) -> False()
+              };
+              Suc(e1) -> case exp2 of {
+                Suc(e2) -> equal e1 e2;
+                Zero() -> False()
+              }
+            }) x from of {
+              True() -> to;
+              False() -> Var(x)
+            };
+            Const(c, es) -> Const(c, rec paramSubst = λfrom.λto.λps.case ps of {
+              Nil() -> Nil();
+              Cons(p, ps) -> Cons(subst from to p, paramSubst from to ps)
+            })
+          }) x d (substs xs ds e)
+        }
+      }) xs es e)
+    }
+  };
+  Rec(x, e) -> eval ((rec subst = λfrom.λto.λexp.case exp of {
+    Apply(e1, e2) -> Apply(subst from to e1, subst from to e2);
+    Lambda(x, e) -> case (rec equal = λexp1.λexp2.case exp1 of {
+      Zero() -> case exp2 of {
+        Zero() -> True();
+        Suc(e2) -> False()
+      };
+      Suc(e1) -> case exp2 of {
+        Suc(e2) -> equal e1 e2;
+        Zero() -> False()
+      }
+    }) x from of {
+      True() -> Lambda(x, e);
+      False() -> Lambda(x, subst from to e)
+    };
+    Case(e, bs) -> Case(subst from to e, (rec substBranches = λfrom.λto.λbs.case bs of {
+      Nil() -> Nil();
+      Cons(b, bs) -> Cons(case b of {
+        Branch(c, xs, e) -> case (rec contains = λm.λxs.case xs of {
+          Nil() -> False();
+          Cons(n, ys) -> case (rec equal = λexp1.λexp2.case exp1 of {
+            Zero() -> case exp2 of {
+              Zero() -> True();
+              Suc(e2) -> False()
+            };
+            Suc(e1) -> case exp2 of {
+              Suc(e2) -> equal e1 e2;
+              Zero() -> False()
+            }
+          }) m n of {
+            True() -> True();
+            False() -> contains m ys
+          }
+        }) from xs of {
+          True() -> Branch(c, xs, e);
+          False() -> Branch(c, xs, subst from to e)
+        }
+      }, substBranches from to bs)
+    }) from to bs);
+    Rec(x, e) -> case (rec equal = λexp1.λexp2.case exp1 of {
+      Zero() -> case exp2 of {
+        Zero() -> True();
+        Suc(e2) -> False()
+      };
+      Suc(e1) -> case exp2 of {
+        Suc(e2) -> equal e1 e2;
+        Zero() -> False()
+      }
+    }) x from of {
+      True() -> Rec(x, e);
+      False() -> Rec(x, subst from to e)
+    };
+    Var(x) -> case (rec equal = λexp1.λexp2.case exp1 of {
+      Zero() -> case exp2 of {
+        Zero() -> True();
+        Suc(e2) -> False()
+      };
+      Suc(e1) -> case exp2 of {
+        Suc(e2) -> equal e1 e2;
+        Zero() -> False()
+      }
+    }) x from of {
+      True() -> to;
+      False() -> Var(x)
+    };
+    Const(c, es) -> Const(c, rec paramSubst = λfrom.λto.λps.case ps of {
+      Nil() -> Nil();
+      Cons(p, ps) -> Cons(subst from to p, paramSubst from to ps)
+    })
+  }) x Rec(x, e) e);
+  Lambda(x, e) -> Lambda(x, e);
+  Const(c, es) -> Const(c, (rec map = λf.λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> Cons(f x, map f xs)
+  }) eval es)
+}
+
+Case(
+    Const(Zero(), Cons(Const(Suc(Zero()), Nil()), Nil())), 
+    Cons(Branch(Zero(), Cons(Var(Zero()), Nil()), Var(Zero())), Nil())
+)
+
+(Cons(              Var(Zero()), Nil()))
+(Cons(Const(Suc(Zero()), Nil()), Nil())) 
+
+(Var(Zero()))

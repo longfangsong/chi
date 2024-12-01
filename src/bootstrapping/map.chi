@@ -1,0 +1,4 @@
+rec map = λf.λxs.case xs of {
+    Nil() -> Nil();
+    Cons(x, xs) -> Cons(f x, map f xs)
+}

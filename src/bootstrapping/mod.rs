@@ -108,20 +108,26 @@ fn decompile_list<T>(
     }
 }
 
-fn decompile_var(variable: &Variable, context: &mut Context) -> Exp {
+fn decompile_raw_var(variable: &Variable, context: &mut Context) -> Exp {
     let id = context.get_or_create_variable_id(variable);
-    Exp::Const("Var".to_string(), vec![number_to_exp(id)])
+    number_to_exp(id)
 }
+
 
 fn decompile_branch(branch: &Branch, context: &mut Context) -> Exp {
     let id = context.get_or_create_constructor_id(&branch.constructor);
     let id_result = number_to_exp(id);
-    let parameters_result = decompile_list(decompile_var)(&branch.parameters, context);
+    let parameters_result = decompile_list(decompile_raw_var)(&branch.parameters, context);
     let exp_result = decompile(branch.expression.as_ref(), context);
     Exp::Const(
         "Branch".to_string(),
         vec![id_result, parameters_result, exp_result],
     )
+}
+
+fn decompile_var(variable: &Variable, context: &mut Context) -> Exp {
+    let id = context.get_or_create_variable_id(variable);
+    Exp::Const("Var".to_string(), vec![number_to_exp(id)])
 }
 
 pub fn decompile(exp: &Exp, context: &mut Context) -> Exp {

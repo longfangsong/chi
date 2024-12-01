@@ -1,0 +1,6 @@
+rec substs = λxs.λds.λe. case xs of {
+    Nil() -> e;
+    Cons(x, xs) -> case ds of {
+        Cons(d, ds) -> subst x d (substs xs ds e)
+    }
+}

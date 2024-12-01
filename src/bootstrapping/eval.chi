@@ -1,0 +1,13 @@
+rec eval = λp. case p of { 
+    Apply(e1, e2) -> case eval e1 of { 
+        Lambda(x, e) -> eval (subst x (eval e2) e)
+    }; 
+    Case(e, bs) -> case eval e of { 
+        Const(c, es) -> case lookup c bs of {
+            Branch(_, xs, e) -> eval (substs xs es e)
+        }
+    };
+    Rec(x, e) -> eval (subst x Rec(x, e) e);
+    Lambda(x, e) -> Lambda(x, e);
+    Const(c, es) -> Const(c, map eval es)
+}

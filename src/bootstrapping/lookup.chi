@@ -1,0 +1,8 @@
+rec lookup = λc.λbs.case bs of {
+  Cons(b, bs) -> case b of {
+    Branch(c', xs', e') -> case equal c c' of {
+      True() -> Branch(c', xs', e');
+      False() -> lookup c bs
+    }
+  }
+}
