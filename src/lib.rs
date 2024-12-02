@@ -55,3 +55,21 @@ pub fn standard_form(exp: JsValue, context: Option<Context>) -> JsValue {
 pub fn get_context_object(v: JsValue) -> Context {
     serde_wasm_bindgen::from_value(v).unwrap()
 }
+
+#[wasm_bindgen]
+pub fn self_interpret(exp: JsValue, context: Option<Context>) -> JsValue {
+    let exp: Exp = serde_wasm_bindgen::from_value(exp).unwrap();
+    let mut context = context.unwrap_or_default();
+    let result = bootstrapping::self_interpret(&exp, &mut context);
+    serde_wasm_bindgen::to_value(&(result, context)).unwrap()
+}
+
+#[wasm_bindgen]
+pub fn self_substitute(from: &str, to: JsValue, exp: JsValue, context: Option<Context>) -> JsValue {
+    let from = from.to_string();
+    let exp: Exp = serde_wasm_bindgen::from_value(exp).unwrap();
+    let to: Exp = serde_wasm_bindgen::from_value(to).unwrap();
+    let mut context = context.unwrap_or_default();
+    let result = bootstrapping::self_substitute(&from, &to, &exp, &mut context);
+    serde_wasm_bindgen::to_value(&(result, context)).unwrap()
+}

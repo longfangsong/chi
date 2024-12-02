@@ -1,6 +1,12 @@
 /* tslint:disable */
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
+export function __wbg_context_free(a: number, b: number): void;
+export function context_new(): number;
+export function context_set_variable(a: number, b: number, c: number, d: number): void;
+export function context_set_constructor(a: number, b: number, c: number, d: number): void;
+export function context_variable_assignments(a: number): number;
+export function context_constructor_assignments(a: number): number;
 export function parse(a: number, b: number): number;
 export function format_abstract(a: number): Array;
 export function format_concrete(a: number): Array;
@@ -8,12 +14,8 @@ export function substitute(a: number, b: number, c: number, d: number): number;
 export function eval_chi(a: number): number;
 export function standard_form(a: number, b: number): number;
 export function get_context_object(a: number): number;
-export function __wbg_context_free(a: number, b: number): void;
-export function context_new(): number;
-export function context_set_variable(a: number, b: number, c: number, d: number): void;
-export function context_set_constructor(a: number, b: number, c: number, d: number): void;
-export function context_variable_assignments(a: number): number;
-export function context_constructor_assignments(a: number): number;
+export function self_interpret(a: number, b: number): number;
+export function self_substitute(a: number, b: number, c: number, d: number, e: number): number;
 export function __wbindgen_malloc(a: number, b: number): number;
 export function __wbindgen_realloc(a: number, b: number, c: number, d: number): number;
 export const __wbindgen_export_2: WebAssembly.Table;

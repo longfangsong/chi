@@ -84,6 +84,12 @@
                 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
                 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none 
                 [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Eval</button>
+        <button id="eval-self"
+            class="inline-flex items-center w-full my-4
+                justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background 
+                transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
+                focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none 
+                [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Eval (With self-interpreter)</button>
         <div class="flex items-center gap-2">
             <input id="var"
                 class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"></input>
@@ -96,6 +102,12 @@
             transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
             focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none 
                 [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Substitute</button>
+            <button id="substitute-self"
+                class="inline-flex items-center my-4
+            justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background 
+            transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring 
+            focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none 
+                [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">Substitute (With self-interpreter)</button>
         </div>
     </main>
     <script type="module">
@@ -109,14 +121,18 @@
             eval_chi,
             standard_form,
             get_context_object,
-            Context
+            Context,
+            self_interpret,
+            self_substitute
         } from "./pkg/chi.js";
 
         async function run() {
             await init();
 
             const evalButton = document.querySelector("#eval");
+            const evalSelfButton = document.querySelector("#eval-self");
             const substituteButton = document.querySelector("#substitute");
+            const substituteSelfButton = document.querySelector("#substitute-self");
             evalButton.addEventListener("click", () => {
                 const input = document.querySelector("#input").value;
                 const parsed = parse(input);
@@ -135,7 +151,6 @@
                 });
                 const [chiRepresentation, ctx] = standard_form(parsed, context);
                 context = get_context_object(ctx);
-                console.log(context);
                 document
                     .querySelector("#highlighted")
                     .removeAttribute("data-highlighted");
@@ -176,6 +191,106 @@
                 const toExp = document.querySelector("#to-exp").value;
                 const parsedTo = parse(toExp);
                 const result = substitute(parsed, varName, parsedTo);
+                document
+                    .querySelector("#highlighted")
+                    .removeAttribute("data-highlighted");
+                document
+                    .querySelector("#output")
+                    .removeAttribute("data-highlighted");
+                document
+                    .querySelector("#abstract")
+                    .removeAttribute("data-highlighted");
+                document.querySelector("#chi-representation").removeAttribute("data-highlighted");
+                document.querySelector("#highlighted").textContent =
+                    format_concrete(parsed);
+                document.querySelector("#output").textContent = format_concrete(result);
+                document.querySelector("#abstract").textContent =
+                    format_abstract(parsed);
+                hljs.registerLanguage("chi", chi);
+                hljs.highlightAll();
+            });
+            evalSelfButton.addEventListener("click", () => {
+                let context = new Context();
+                const input = document.querySelector("#input").value;
+                const parsed = parse(input);
+                const variables = document.querySelectorAll("#variables tbody tr");
+                variables.forEach(row => {
+                    const name = row.querySelector("code").textContent;
+                    const id = parseInt(row.querySelector("input").value);
+                    context.set_variable(name, id);
+                });
+                const constructors = document.querySelectorAll("#constructors tbody tr");
+                constructors.forEach(row => {
+                    const name = row.querySelector("code").textContent;
+                    const id = parseInt(row.querySelector("input").value);
+                    context.set_constructor(name, id);
+                });
+                const [chiRepresentation, ctx] = standard_form(parsed, context);
+                context = get_context_object(ctx);
+                document
+                    .querySelector("#highlighted")
+                    .removeAttribute("data-highlighted");
+                document
+                    .querySelector("#output")
+                    .removeAttribute("data-highlighted");
+                document
+                    .querySelector("#abstract")
+                    .removeAttribute("data-highlighted");
+                document.querySelector("#chi-representation").removeAttribute("data-highlighted");
+                document.querySelector("#chi-representation").textContent =
+                    format_concrete(chiRepresentation);
+                document.querySelector("#highlighted").textContent =
+                    format_concrete(parsed);
+                document.querySelector("#abstract").textContent =
+                    format_abstract(parsed);
+                try {
+                    const [result, ctx] = self_interpret(parsed, context);
+                    context = get_context_object(ctx);
+                    document.querySelector("#variables > tbody").innerHTML =
+                    Array.from(context.variable_assignments())
+                        .map(([name, id]) => `<tr><td class="border px-2"><code>${name}</code></td><td class="border px-2"><input type="number" value="${id}"/></td></tr>`)
+                        .join('');
+                    document.querySelector("#constructors > tbody").innerHTML =
+                        Array.from(context.constructor_assignments())
+                            .map(([name, id]) => `<tr><td class="border px-2"><code>${name}</code></td><td class="border px-2"><input type="number" value="${id}"/></td></tr>`)
+                            .join('');
+                    document.querySelector("#output").textContent = format_concrete(result);
+                } catch (e) {
+                    console.error(e);
+                    document.querySelector("#output").textContent = "May not terminate!";
+                }
+                hljs.registerLanguage("chi", chi);
+                hljs.highlightAll();
+            });
+            substituteSelfButton.addEventListener("click", () => {
+                const input = document.querySelector("#input").value;
+                const parsed = parse(input);
+                const varName = document.querySelector("#var").value;
+                const toExp = document.querySelector("#to-exp").value;
+                const parsedTo = parse(toExp);
+                let context = new Context();
+                const variables = document.querySelectorAll("#variables tbody tr");
+                variables.forEach(row => {
+                    const name = row.querySelector("code").textContent;
+                    const id = parseInt(row.querySelector("input").value);
+                    context.set_variable(name, id);
+                });
+                const constructors = document.querySelectorAll("#constructors tbody tr");
+                constructors.forEach(row => {
+                    const name = row.querySelector("code").textContent;
+                    const id = parseInt(row.querySelector("input").value);
+                    context.set_constructor(name, id);
+                });
+                const [result, ctx] = self_substitute(varName, parsedTo, parsed, context);
+                context = get_context_object(ctx);
+                document.querySelector("#variables > tbody").innerHTML =
+                    Array.from(context.variable_assignments())
+                        .map(([name, id]) => `<tr><td class="border px-2"><code>${name}</code></td><td class="border px-2"><input type="number" value="${id}"/></td></tr>`)
+                        .join('');
+                document.querySelector("#constructors > tbody").innerHTML =
+                    Array.from(context.constructor_assignments())
+                        .map(([name, id]) => `<tr><td class="border px-2"><code>${name}</code></td><td class="border px-2"><input type="number" value="${id}"/></td></tr>`)
+                        .join('');
                 document
                     .querySelector("#highlighted")
                     .removeAttribute("data-highlighted");

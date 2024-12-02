@@ -262,7 +262,7 @@ mod tests {
         test_case("case C(D(),E()) of { C(x, x) → x }", "E()");
         test_case("case C(λx.x, Zero()) of { C(f, x) → f x }", "Zero()");
         test_case("case (λx.x) C() of { C() → C() }", "C()");
-        test_case("((λx.x)(λx.x))(λx.x)", "λx.x");
+        test_case("((λx.x) (λx.x)) (λx.x)", "λx.x");
         test_case(
             "(rec add = 𝜆 m. 𝜆 n. case n of {
             Zero() → m; 
@@ -272,8 +272,8 @@ mod tests {
         );
         test_case(
             "(rec add = 𝜆 m. 𝜆 n. case n of {
-            Zero() → m; 
-            Suc(n) → Suc(add m n)
+                Zero() → m; 
+                Suc(n) → Suc(add m n)
             }) (Suc(Suc(Suc(Zero())))) (Suc(Suc(Suc(Suc(Zero())))))",
             "Suc(Suc(Suc(Suc(Suc(Suc(Suc(Zero())))))))",
         );

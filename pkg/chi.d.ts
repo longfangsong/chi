@@ -38,6 +38,20 @@ export function standard_form(exp: any, context?: Context): any;
  * @returns {Context}
  */
 export function get_context_object(v: any): Context;
+/**
+ * @param {any} exp
+ * @param {Context | undefined} [context]
+ * @returns {any}
+ */
+export function self_interpret(exp: any, context?: Context): any;
+/**
+ * @param {string} from
+ * @param {any} to
+ * @param {any} exp
+ * @param {Context | undefined} [context]
+ * @returns {any}
+ */
+export function self_substitute(from: string, to: any, exp: any, context?: Context): any;
 export class Context {
   free(): void;
   constructor();
@@ -65,6 +79,12 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
+  readonly __wbg_context_free: (a: number, b: number) => void;
+  readonly context_new: () => number;
+  readonly context_set_variable: (a: number, b: number, c: number, d: number) => void;
+  readonly context_set_constructor: (a: number, b: number, c: number, d: number) => void;
+  readonly context_variable_assignments: (a: number) => number;
+  readonly context_constructor_assignments: (a: number) => number;
   readonly parse: (a: number, b: number) => number;
   readonly format_abstract: (a: number) => Array;
   readonly format_concrete: (a: number) => Array;
@@ -72,12 +92,8 @@ export interface InitOutput {
   readonly eval_chi: (a: number) => number;
   readonly standard_form: (a: number, b: number) => number;
   readonly get_context_object: (a: number) => number;
-  readonly __wbg_context_free: (a: number, b: number) => void;
-  readonly context_new: () => number;
-  readonly context_set_variable: (a: number, b: number, c: number, d: number) => void;
-  readonly context_set_constructor: (a: number, b: number, c: number, d: number) => void;
-  readonly context_variable_assignments: (a: number) => number;
-  readonly context_constructor_assignments: (a: number) => number;
+  readonly self_interpret: (a: number, b: number) => number;
+  readonly self_substitute: (a: number, b: number, c: number, d: number, e: number) => number;
   readonly __wbindgen_malloc: (a: number, b: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
   readonly __wbindgen_export_2: WebAssembly.Table;

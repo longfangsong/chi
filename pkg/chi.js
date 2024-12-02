@@ -248,6 +248,40 @@ export function get_context_object(v) {
     return Context.__wrap(ret);
 }
 
+/**
+ * @param {any} exp
+ * @param {Context | undefined} [context]
+ * @returns {any}
+ */
+export function self_interpret(exp, context) {
+    let ptr0 = 0;
+    if (!isLikeNone(context)) {
+        _assertClass(context, Context);
+        ptr0 = context.__destroy_into_raw();
+    }
+    const ret = wasm.self_interpret(exp, ptr0);
+    return ret;
+}
+
+/**
+ * @param {string} from
+ * @param {any} to
+ * @param {any} exp
+ * @param {Context | undefined} [context]
+ * @returns {any}
+ */
+export function self_substitute(from, to, exp, context) {
+    const ptr0 = passStringToWasm0(from, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    let ptr1 = 0;
+    if (!isLikeNone(context)) {
+        _assertClass(context, Context);
+        ptr1 = context.__destroy_into_raw();
+    }
+    const ret = wasm.self_substitute(ptr0, len0, to, exp, ptr1);
+    return ret;
+}
+
 function addToExternrefTable0(obj) {
     const idx = wasm.__externref_table_alloc();
     wasm.__wbindgen_export_2.set(idx, obj);
