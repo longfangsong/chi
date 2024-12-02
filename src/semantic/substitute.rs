@@ -76,6 +76,9 @@ mod tests {
         let term = concrete::parse(code).unwrap();
         let sub_term = concrete::parse("C(λz.z)").unwrap();
         let substitued = substitute(&term, "z", &sub_term);
-        assert_eq!(concrete::format(&substitued), "case C(λz.z) of {\n  C(z) -> z\n}");
+        assert_eq!(
+            concrete::format(&substitued),
+            "case C(λz.z) of {\n  C(z) -> z\n}"
+        );
     }
 }

@@ -63,8 +63,8 @@ rec subst = λfrom.λto.λexp.case exp of {
     True() -> to;
     False() -> Var(x)
   };
-  Const(c, es) -> Const(c, rec paramSubst = λfrom.λto.λps.case ps of {
+  Const(c, es) -> Const(c, (rec paramSubst = λfrom.λto.λps.case ps of {
     Nil() -> Nil();
     Cons(p, ps) -> Cons(subst from to p, paramSubst from to ps)
-  })
+  }) from to es)
 }

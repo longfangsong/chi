@@ -1,8 +1,13 @@
+use std::sync::LazyLock;
+
 use bimap::BiMap;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
 
-use crate::syntax::{Branch, Constructor, Exp, Variable};
+use crate::{
+    semantic,
+    syntax::{concrete, Branch, Constructor, Exp, Variable},
+};
 
 #[wasm_bindgen]
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
@@ -75,12 +80,16 @@ impl Context {
     }
 
     pub fn variable_assignments(&self) -> JsValue {
-        let result: Vec<_> = self.variable.iter().map(|(k,v)| (k.clone(),*v)).collect();
+        let result: Vec<_> = self.variable.iter().map(|(k, v)| (k.clone(), *v)).collect();
         serde_wasm_bindgen::to_value(&result).unwrap()
     }
 
     pub fn constructor_assignments(&self) -> JsValue {
-        let result: Vec<_> = self.constructor.iter().map(|(k,v)| (k.clone(),*v)).collect();
+        let result: Vec<_> = self
+            .constructor
+            .iter()
+            .map(|(k, v)| (k.clone(), *v))
+            .collect();
         serde_wasm_bindgen::to_value(&result).unwrap()
     }
 }
@@ -112,7 +121,6 @@ fn decompile_raw_var(variable: &Variable, context: &mut Context) -> Exp {
     let id = context.get_or_create_variable_id(variable);
     number_to_exp(id)
 }
-
 
 fn decompile_branch(branch: &Branch, context: &mut Context) -> Exp {
     let id = context.get_or_create_constructor_id(&branch.constructor);
@@ -166,6 +174,33 @@ pub fn decompile(exp: &Exp, context: &mut Context) -> Exp {
     }
 }
 
+static SELF_SUBSTITUTE: LazyLock<Exp> =
+    LazyLock::new(|| concrete::parse(include_str!("subst_expanded.chi")).unwrap());
+
+pub fn self_substitute(from: &Variable, to: &Exp, exp: &Exp, context: &mut Context) -> Exp {
+    let exp_std_form = decompile(exp, context);
+    let apply = Exp::Apply(
+        Box::new(Exp::Apply(
+            Box::new(Exp::Apply(
+                Box::new(SELF_SUBSTITUTE.clone()),
+                Box::new(decompile_raw_var(from, context)),
+            )),
+            Box::new(decompile(to, context)),
+        )),
+        Box::new(exp_std_form),
+    );
+    semantic::eval(&apply)
+}
+
+static SELF_INTERPRET: LazyLock<Exp> =
+    LazyLock::new(|| concrete::parse(include_str!("eval_expanded.chi")).unwrap());
+
+pub fn self_interpret(exp: &Exp, context: &mut Context) -> Exp {
+    let exp_std_form = decompile(exp, context);
+    let apply = Exp::Apply(Box::new(SELF_INTERPRET.clone()), Box::new(exp_std_form));
+    semantic::eval(&apply)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -188,5 +223,59 @@ mod tests {
         context.set_variable("x".to_string(), 1);
         let result = concrete::format(&decompile(&term, &mut context)).to_string();
         assert_eq!(result, "Rec(Suc(Zero()), Var(Suc(Zero())))");
+    }
+
+    #[test]
+    fn test_self_substitute() {
+        fn test_case(code: &str, from: &str, to: &str, expected_result: &str) {
+            let mut context = Context::default();
+            let term = concrete::parse(code).unwrap();
+            let to = concrete::parse(to).unwrap();
+            let from = from.to_string();
+            let result = self_substitute(&from, &to, &term, &mut context);
+            let expected_result = concrete::parse(expected_result).unwrap();
+            let expreced_result_nf = decompile(&expected_result, &mut context);
+            assert_eq!(result, expreced_result_nf);
+        }
+
+        test_case("rec x = x", "x", "Zero()", "rec x = x");
+        test_case("λx.(x y)", "y", "λx.x", "λx.(x (λx.x))");
+        test_case(
+            "case z of { C(z) → z }",
+            "z",
+            "C(λz.z)",
+            "case C(λz.z) of { C(z) → z }",
+        );
+    }
+
+    #[test]
+    fn test_self_interpret() {
+        fn test_case(code: &str, expected_result: &str) {
+            let mut context = Context::default();
+            let term = concrete::parse(code).unwrap();
+            let result = self_interpret(&term, &mut context);
+            let expected_result = concrete::parse(expected_result).unwrap();
+            let expected_normal_form = decompile(&expected_result, &mut context);
+            assert_eq!(result, expected_normal_form);
+        }
+
+        test_case("case C(D(),E()) of { C(x, x) → x }", "E()");
+        test_case("case C(λx.x, Zero()) of { C(f, x) → f x }", "Zero()");
+        test_case("case (λx.x) C() of { C() → C() }", "C()");
+        test_case("((λx.x)(λx.x))(λx.x)", "λx.x");
+        test_case(
+            "(rec add = 𝜆 m. 𝜆 n. case n of {
+            Zero() → m; 
+            Suc(n) → Suc(add m n)
+            }) (Suc(Suc(Zero()))) (Suc(Zero()))",
+            "Suc(Suc(Suc(Zero())))",
+        );
+        test_case(
+            "(rec add = 𝜆 m. 𝜆 n. case n of {
+            Zero() → m; 
+            Suc(n) → Suc(add m n)
+            }) (Suc(Suc(Suc(Zero())))) (Suc(Suc(Suc(Suc(Zero())))))",
+            "Suc(Suc(Suc(Suc(Suc(Suc(Suc(Zero())))))))",
+        );
     }
 }
